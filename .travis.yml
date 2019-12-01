@@ -1,0 +1,27 @@
+language: go
+go:
+  - 1.13
+env:
+  global:
+    - secure: "..."
+jobs:
+  include:
+    - stage: test
+      name: Run tests
+      script:
+        - make test
+    - stage: build
+      script:
+        - make build
+      deploy:
+        provider: releases
+        skip_cleanup: true
+        name: "scout $TRAVIS_TAG"
+        edge: true
+        file:
+          - bin/darwin/scout-darwin-amd64
+          - bin/linux/scout-linux-amd64
+          - bin/windows/scout-windows-amd64.exe
+        on:
+          repo: liamg/scout
+          tags: true
