@@ -8,4 +8,4 @@ test:
 	GO111MODULE=on go test -v ./....
 
 import-wordlist:
- 	./scripts/import-wordlist.sh
+	./scripts/import-wordlist.sh
