@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 	"sync"
 
 	"github.com/sirupsen/logrus"
@@ -73,7 +74,10 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 	logrus.Debug("Adding jobs...")
 
 	// add urls to scan...
-	prefix := scanner.options.TargetURL
+	prefix := scanner.options.TargetURL.String()
+	if !strings.HasSuffix(prefix, "/") {
+		prefix = prefix + "/"
+	}
 	for {
 		if word, err := scanner.options.Wordlist.Next(); err != nil {
 			if err != io.EOF {
@@ -84,11 +88,7 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 			if word == "" {
 				continue
 			}
-			segment, err := url.Parse(word)
-			if err != nil {
-				continue
-			}
-			uri := prefix.ResolveReference(segment).String()
+			uri := prefix + word
 			jobs <- uri
 			for _, ext := range scanner.options.Extensions {
 				jobs <- uri + "." + ext
