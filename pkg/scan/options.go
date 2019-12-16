@@ -16,12 +16,18 @@ type Options struct {
 	PositiveStatusCodes []int         // status codes that indicate the existance of a file/directory
 	Timeout             time.Duration // http request timeout
 	Parallelism         int           // parallel routines
-	ResultChan          chan url.URL  // chan to return results on - otherwise will be returned in slice
+	ResultChan          chan Result   // chan to return results on - otherwise will be returned in slice
+	BusyChan            chan string   // chan to use to update current job
 	Wordlist            wordlist.Wordlist
 	Extensions          []string
 }
 
-var defaultOptions = Options{
+type Result struct {
+	URL        url.URL
+	StatusCode int
+}
+
+var DefaultOptions = Options{
 	Recursive: false,
 	PositiveStatusCodes: []int{
 		http.StatusOK,
@@ -35,19 +41,19 @@ var defaultOptions = Options{
 		http.StatusUnauthorized,
 	},
 	Timeout:     time.Second * 5,
-	Parallelism: 5,
-	Extensions:  []string{".php", ".asp", ".htm", ".html", ".txt"},
+	Parallelism: 10,
+	Extensions:  []string{"php", "asp", "htm", "html", "txt"},
 }
 
-func (opt *Options) inherit() {
-	if opt.PositiveStatusCodes == nil {
-		opt.PositiveStatusCodes = defaultOptions.PositiveStatusCodes
+func (opt *Options) Inherit() {
+	if len(opt.PositiveStatusCodes) == 0 {
+		opt.PositiveStatusCodes = DefaultOptions.PositiveStatusCodes
 	}
 	if opt.Timeout == 0 {
-		opt.Timeout = defaultOptions.Timeout
+		opt.Timeout = DefaultOptions.Timeout
 	}
 	if opt.Parallelism == 0 {
-		opt.Parallelism = defaultOptions.Parallelism
+		opt.Parallelism = DefaultOptions.Parallelism
 	}
 	if opt.Wordlist == nil {
 		wordlistBytes, err := data.Asset("assets/wordlist.txt")
@@ -56,7 +62,7 @@ func (opt *Options) inherit() {
 		}
 		opt.Wordlist = wordlist.FromReader(bytes.NewReader(wordlistBytes))
 	}
-	if opt.Extensions == nil {
-		opt.Extensions = defaultOptions.Extensions
+	if len(opt.Extensions) == 0 {
+		opt.Extensions = DefaultOptions.Extensions
 	}
 }

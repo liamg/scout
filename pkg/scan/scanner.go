@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"net/url"
 	"sync"
+
+	"github.com/sirupsen/logrus"
 )
 
 type Scanner struct {
@@ -16,10 +18,10 @@ type Scanner struct {
 func NewScanner(opt *Options) *Scanner {
 
 	if opt == nil {
-		opt = &defaultOptions
+		opt = &DefaultOptions
 	}
 
-	opt.inherit()
+	opt.Inherit()
 
 	return &Scanner{
 		options: opt,
@@ -34,9 +36,11 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 	// todo check url is well formed, check hostname exists etc.
 
 	jobs := make(chan string, scanner.options.Parallelism)
-	results := make(chan string, scanner.options.Parallelism)
+	results := make(chan Result, scanner.options.Parallelism)
 
 	wg := sync.WaitGroup{}
+
+	logrus.Debug("Starting workers...")
 
 	for i := 0; i < scanner.options.Parallelism; i++ {
 		wg.Add(1)
@@ -45,6 +49,29 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 			wg.Done()
 		}()
 	}
+
+	logrus.Debugf("Started %d workers!", scanner.options.Parallelism)
+
+	logrus.Debug("Starting results gatherer...")
+
+	waitChan := make(chan struct{})
+	var foundURLs []url.URL
+
+	go func() {
+		for result := range results {
+			if scanner.options.ResultChan != nil {
+				scanner.options.ResultChan <- result
+			} else {
+				foundURLs = append(foundURLs, result.URL)
+			}
+		}
+		if scanner.options.ResultChan != nil {
+			close(scanner.options.ResultChan)
+		}
+		close(waitChan)
+	}()
+
+	logrus.Debug("Adding jobs...")
 
 	// add urls to scan...
 	prefix := scanner.options.TargetURL
@@ -55,6 +82,9 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 			}
 			break
 		} else {
+			if word == "" {
+				continue
+			}
 			segment, err := url.Parse(word)
 			if err != nil {
 				continue
@@ -62,62 +92,70 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 			uri := prefix.ResolveReference(segment).String()
 			jobs <- uri
 			for _, ext := range scanner.options.Extensions {
-				jobs <- uri + ext
+				jobs <- uri + "." + ext
 			}
 		}
 	}
 	close(jobs)
 
-	waitChan := make(chan struct{})
-	var foundURLs []url.URL
-
-	go func() {
-		for result := range results {
-			parsedURL, err := url.Parse(result)
-			if err == nil {
-				if scanner.options.ResultChan != nil {
-					scanner.options.ResultChan <- *parsedURL
-				} else {
-					foundURLs = append(foundURLs, *parsedURL)
-				}
-			}
-		}
-		close(waitChan)
-	}()
+	logrus.Debug("Waiting for workers to complete...")
 
 	wg.Wait()
 	close(results)
+
+	if scanner.options.BusyChan != nil {
+		close(scanner.options.BusyChan)
+	}
+
+	logrus.Debug("Waiting for results...")
+
 	<-waitChan
+
+	logrus.Debug("Complete!")
 
 	return foundURLs, nil
 }
 
-func (scanner *Scanner) worker(jobs <-chan string, results chan<- string) {
+func (scanner *Scanner) worker(jobs <-chan string, results chan<- Result) {
 	for j := range jobs {
-		if scanner.checkURL(j) {
-			results <- j
+		if result := scanner.checkURL(j); result != nil {
+			results <- *result
 		}
 	}
 }
 
 // hit a url - is it one of certain response codes? leave connections open!
-func (scanner *Scanner) checkURL(url string) bool {
+func (scanner *Scanner) checkURL(uri string) *Result {
 
-	resp, err := scanner.client.Get(url)
+	if scanner.options.BusyChan != nil {
+		scanner.options.BusyChan <- uri
+	}
+
+	resp, err := scanner.client.Get(uri)
 	if err != nil {
-		return false
+		return nil
 	}
 
 	_, _ = io.Copy(ioutil.Discard, resp.Body)
 	resp.Body.Close()
 
+	//fmt.Printf("[%d] %s\n", resp.StatusCode, url)
+
 	for _, status := range scanner.options.PositiveStatusCodes {
 		if status == resp.StatusCode {
-			return true
+			parsedURL, err := url.Parse(uri)
+			if err != nil {
+				return nil
+			}
+
+			return &Result{
+				StatusCode: resp.StatusCode,
+				URL:        *parsedURL,
+			}
 		}
 	}
 
-	return false
+	return nil
 }
 
 // strategy to generate urls? directories + what file extensions?
