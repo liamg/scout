@@ -12,7 +12,6 @@ import (
 
 type Options struct {
 	TargetURL           url.URL       // target url
-	Recursive           bool          // scan path recursively. e.g. when /secret is discovered, whether we keep looking for /secret/*
 	PositiveStatusCodes []int         // status codes that indicate the existance of a file/directory
 	Timeout             time.Duration // http request timeout
 	Parallelism         int           // parallel routines
@@ -28,7 +27,6 @@ type Result struct {
 }
 
 var DefaultOptions = Options{
-	Recursive: false,
 	PositiveStatusCodes: []int{
 		http.StatusOK,
 		http.StatusFound,
@@ -42,7 +40,7 @@ var DefaultOptions = Options{
 	},
 	Timeout:     time.Second * 5,
 	Parallelism: 10,
-	Extensions:  []string{"php", "asp", "htm", "html", "txt"},
+	Extensions:  []string{"php", "htm", "html"},
 }
 
 func (opt *Options) Inherit() {

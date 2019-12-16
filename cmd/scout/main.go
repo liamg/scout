@@ -48,7 +48,6 @@ var rootCmd = &cobra.Command{
 			TargetURL:   *parsedURL,
 			ResultChan:  resultChan,
 			BusyChan:    busyChan,
-			Recursive:   recursive,
 			Parallelism: parallelism,
 			Extensions:  extensions,
 		}
@@ -69,14 +68,12 @@ var rootCmd = &cobra.Command{
 		tml.Printf(
 			`
 <blue>[</blue><yellow>+</yellow><blue>] Target URL</blue><yellow>      %s
-<blue>[</blue><yellow>+</yellow><blue>] Recursive</blue><yellow>       %t 
 <blue>[</blue><yellow>+</yellow><blue>] Routines</blue><yellow>        %d 
 <blue>[</blue><yellow>+</yellow><blue>] Extensions</blue><yellow>      %s 
 <blue>[</blue><yellow>+</yellow><blue>] Positive Codes</blue><yellow>  %s
 
 `,
 			options.TargetURL.String(),
-			options.Recursive,
 			options.Parallelism,
 			strings.Join(options.Extensions, ","),
 			strings.Join(codeStrings, ","),
@@ -154,7 +151,6 @@ func clearLine() {
 	fmt.Printf("\033[2K\r")
 }
 
-var recursive = scan.DefaultOptions.Recursive
 var parallelism = scan.DefaultOptions.Parallelism
 var extensions = scan.DefaultOptions.Extensions
 var noColours = false
@@ -163,7 +159,6 @@ var debug bool
 
 func main() {
 
-	rootCmd.Flags().BoolVarP(&recursive, "recursive", "r", recursive, "Recursively fuzz paths to find results hierarchically.")
 	rootCmd.Flags().IntVarP(&parallelism, "parallelism", "p", parallelism, "Parallel routines to use for sending requests.")
 	rootCmd.Flags().StringArrayVarP(&extensions, "extensions", "x", extensions, "File extensions to detect.")
 	rootCmd.Flags().BoolVarP(&noColours, "no-colours", "n", noColours, "Disable coloured output.")
