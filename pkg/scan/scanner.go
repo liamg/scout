@@ -61,9 +61,8 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 		for result := range results {
 			if scanner.options.ResultChan != nil {
 				scanner.options.ResultChan <- result
-			} else {
-				foundURLs = append(foundURLs, result.URL)
 			}
+			foundURLs = append(foundURLs, result.URL)
 		}
 		if scanner.options.ResultChan != nil {
 			close(scanner.options.ResultChan)

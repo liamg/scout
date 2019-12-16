@@ -133,7 +133,8 @@ var rootCmd = &cobra.Command{
 
 		}()
 
-		if _, err := scanner.Scan(); err != nil {
+		results, err := scanner.Scan()
+		if err != nil {
 			clearLine()
 			tml.Printf("<bold><red>Error:</red></bold> %s\n", err)
 			os.Exit(1)
@@ -144,7 +145,7 @@ var rootCmd = &cobra.Command{
 		<-outChan
 
 		clearLine()
-		fmt.Println("")
+		tml.Printf("\n<bold><green>Scan complete. %d results found.</green></bold>\n\n", len(results))
 
 	},
 }
