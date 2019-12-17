@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/liamg/scout/pkg/scan"
@@ -45,7 +46,19 @@ var rootCmd = &cobra.Command{
 		resultChan := make(chan scan.Result)
 		busyChan := make(chan string, 0x400)
 
+		var intStatusCodes []int
+
+		for _, code := range statusCodes {
+			i, err := strconv.Atoi(code)
+			if err != nil {
+				tml.Printf("<bold><red>Error:</red></bold> Invalid status code entered: %s.\n", code)
+				os.Exit(1)
+			}
+			intStatusCodes = append(intStatusCodes, i)
+		}
+
 		options := &scan.Options{
+			PositiveStatusCodes: intStatusCodes,
 			TargetURL:           *parsedURL,
 			ResultChan:          resultChan,
 			BusyChan:            busyChan,
@@ -156,6 +169,7 @@ func clearLine() {
 
 var parallelism = scan.DefaultOptions.Parallelism
 var extensions = scan.DefaultOptions.Extensions
+var statusCodes []string
 var noColours = false
 var wordlistPath string
 var debug bool
@@ -164,6 +178,10 @@ var skipSSLVerification bool
 
 func main() {
 
+	for _, code := range scan.DefaultOptions.PositiveStatusCodes {
+		statusCodes = append(statusCodes, strconv.Itoa(code))
+	}
+
 	rootCmd.Flags().IntVarP(&parallelism, "parallelism", "p", parallelism, "Parallel routines to use for sending requests.")
 	rootCmd.Flags().StringArrayVarP(&extensions, "extensions", "x", extensions, "File extensions to detect.")
 	rootCmd.Flags().BoolVarP(&noColours, "no-colours", "n", noColours, "Disable coloured output.")
@@ -171,6 +189,7 @@ func main() {
 	rootCmd.Flags().BoolVarP(&debug, "debug", "d", debug, "Enable debug logging.")
 	rootCmd.Flags().StringVarP(&filename, "filename", "f", filename, "Filename to seek in the directory being searched. Useful when all directories report 404 status.")
 	rootCmd.Flags().BoolVarP(&skipSSLVerification, "skip-ssl-verify", "k", skipSSLVerification, "Skip SSL certificate verification.")
+	rootCmd.Flags().StringArrayVarP(&statusCodes, "status-codes", "s", statusCodes, "HTTP status codes which indicate a positive find.")
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
