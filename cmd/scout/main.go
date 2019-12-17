@@ -159,6 +159,7 @@ var noColours = false
 var wordlistPath string
 var debug bool
 var filename string
+var skipSSLVerification bool
 
 func main() {
 
@@ -168,6 +169,7 @@ func main() {
 	rootCmd.Flags().StringVarP(&wordlistPath, "wordlist", "w", wordlistPath, "Path to wordlist file. If this is not specified an internal wordlist will be used.")
 	rootCmd.Flags().BoolVarP(&debug, "debug", "d", debug, "Enable debug logging.")
 	rootCmd.Flags().StringVarP(&filename, "filename", "f", filename, "Filename to seek in the directory being searched. Useful when all directories report 404 status.")
+	rootCmd.Flags().BoolVarP(&skipSSLVerification, "skip-ssl-verify", "k", skipSSLVerification, "Skip SSL certificate verification.")
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)

@@ -20,6 +20,7 @@ type Options struct {
 	Wordlist            wordlist.Wordlist
 	Extensions          []string
 	Filename            string
+	SkipSSLVerification bool
 }
 
 type Result struct {

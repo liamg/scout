@@ -1,6 +1,7 @@
 package scan
 
 import (
+	"crypto/tls"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -24,11 +25,17 @@ func NewScanner(opt *Options) *Scanner {
 
 	opt.Inherit()
 
+	client := &http.Client{
+		Timeout: opt.Timeout,
+	}
+
+	if opt.SkipSSLVerification {
+		client.Transport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	}
+
 	return &Scanner{
 		options: opt,
-		client: &http.Client{
-			Timeout: opt.Timeout,
-		},
+		client:  client,
 	}
 }
 
