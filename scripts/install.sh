@@ -11,6 +11,9 @@ curl -s -L -H "Accept: application/octet-stream" "${asset}" --output ./scout
 echo "Installing scout..."
 chmod +x ./scout
 installdir="${HOME}/bin/"
+if [ "$EUID" -ne 0 ]; then
+  installdir="/usr/local/bin/"
+fi
 mkdir -p $installdir
 mv ./scout "${installdir}/scout"
 which scout &> /dev/null || (echo "Please add ${installdir} to your PATH to complete installation!" && exit 1)
