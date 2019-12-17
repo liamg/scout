@@ -157,6 +157,7 @@ var extensions = scan.DefaultOptions.Extensions
 var noColours = false
 var wordlistPath string
 var debug bool
+var filename string
 
 func main() {
 
@@ -165,6 +166,7 @@ func main() {
 	rootCmd.Flags().BoolVarP(&noColours, "no-colours", "n", noColours, "Disable coloured output.")
 	rootCmd.Flags().StringVarP(&wordlistPath, "wordlist", "w", wordlistPath, "Path to wordlist file. If this is not specified an internal wordlist will be used.")
 	rootCmd.Flags().BoolVarP(&debug, "debug", "d", debug, "Enable debug logging.")
+	rootCmd.Flags().StringVarP(&filename, "filename", "f", filename, "Filename to seek in the directory being searched. Useful when all directories report 404 status.")
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)

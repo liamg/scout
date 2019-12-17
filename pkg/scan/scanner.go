@@ -89,9 +89,13 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 				continue
 			}
 			uri := prefix + word
-			jobs <- uri
-			for _, ext := range scanner.options.Extensions {
-				jobs <- uri + "." + ext
+			if scanner.options.Filename != "" {
+				jobs <- uri + "/" + scanner.options.Filename
+			} else {
+				jobs <- uri
+				for _, ext := range scanner.options.Extensions {
+					jobs <- uri + "." + ext
+				}
 			}
 		}
 	}

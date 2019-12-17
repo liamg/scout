@@ -19,6 +19,7 @@ type Options struct {
 	BusyChan            chan string   // chan to use to update current job
 	Wordlist            wordlist.Wordlist
 	Extensions          []string
+	Filename            string
 }
 
 type Result struct {
