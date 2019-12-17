@@ -2,17 +2,16 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
 	"net/url"
 	"os"
 	"strings"
 
-	"github.com/sirupsen/logrus"
-
-	"github.com/liamg/scout/pkg/wordlist"
-
 	"github.com/liamg/scout/pkg/scan"
+	"github.com/liamg/scout/pkg/wordlist"
 	"github.com/liamg/tml"
-
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -21,6 +20,8 @@ var rootCmd = &cobra.Command{
 	Short: "Scout is a portable URL fuzzer",
 	Long:  `A fast and portable url fuzzer - see https://github.com/liamg/scout for more information`,
 	Run: func(cmd *cobra.Command, args []string) {
+
+		log.SetOutput(ioutil.Discard)
 
 		if debug {
 			logrus.SetLevel(logrus.DebugLevel)
