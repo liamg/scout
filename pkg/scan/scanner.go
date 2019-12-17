@@ -30,7 +30,8 @@ func NewScanner(opt *Options) *Scanner {
 	}
 
 	if opt.SkipSSLVerification {
-		client.Transport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+		client.Transport = http.DefaultTransport
 	}
 
 	return &Scanner{
