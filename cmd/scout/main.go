@@ -51,6 +51,7 @@ var rootCmd = &cobra.Command{
 			BusyChan:    busyChan,
 			Parallelism: parallelism,
 			Extensions:  extensions,
+			Filename:    filename,
 		}
 		if wordlistPath != "" {
 			options.Wordlist, err = wordlist.FromFile(wordlistPath)
