@@ -46,12 +46,13 @@ var rootCmd = &cobra.Command{
 		busyChan := make(chan string, 0x400)
 
 		options := &scan.Options{
-			TargetURL:   *parsedURL,
-			ResultChan:  resultChan,
-			BusyChan:    busyChan,
-			Parallelism: parallelism,
-			Extensions:  extensions,
-			Filename:    filename,
+			TargetURL:           *parsedURL,
+			ResultChan:          resultChan,
+			BusyChan:            busyChan,
+			Parallelism:         parallelism,
+			Extensions:          extensions,
+			Filename:            filename,
+			SkipSSLVerification: skipSSLVerification,
 		}
 		if wordlistPath != "" {
 			options.Wordlist, err = wordlist.FromFile(wordlistPath)
