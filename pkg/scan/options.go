@@ -24,8 +24,10 @@ type Options struct {
 }
 
 type Result struct {
-	URL        url.URL
-	StatusCode int
+	URL               url.URL
+	StatusCode        int
+	ExtraWork         []string
+	SupplementaryOnly bool
 }
 
 var DefaultOptions = Options{
@@ -39,6 +41,8 @@ var DefaultOptions = Options{
 		http.StatusMethodNotAllowed,
 		http.StatusNoContent,
 		http.StatusUnauthorized,
+		http.StatusMovedPermanently,
+		http.StatusFound,
 	},
 	Timeout:     time.Second * 5,
 	Parallelism: 10,

@@ -28,6 +28,9 @@ func NewScanner(opt *Options) *Scanner {
 
 	client := &http.Client{
 		Timeout: opt.Timeout,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
 	}
 
 	if opt.SkipSSLVerification {
@@ -67,8 +70,16 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 	waitChan := make(chan struct{})
 	var foundURLs []url.URL
 
+	var extraWork []string
+
 	go func() {
 		for result := range results {
+			if result.ExtraWork != nil {
+				extraWork = append(extraWork, result.ExtraWork...)
+			}
+			if result.SupplementaryOnly {
+				continue
+			}
 			if scanner.options.ResultChan != nil {
 				scanner.options.ResultChan <- result
 			}
@@ -108,6 +119,7 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 			}
 		}
 	}
+
 	close(jobs)
 
 	logrus.Debug("Waiting for workers to complete...")
@@ -122,6 +134,14 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 	logrus.Debug("Waiting for results...")
 
 	<-waitChan
+
+	logrus.Debug("Supplementing results...")
+
+	for _, work := range extraWork {
+		if result := scanner.checkURL(work); result != nil {
+			foundURLs = append(foundURLs, result.URL)
+		}
+	}
 
 	logrus.Debug("Complete!")
 
@@ -144,6 +164,7 @@ func (scanner *Scanner) checkURL(uri string) *Result {
 	}
 
 	var code int
+	var location string
 	if err := retry.Do(func() error {
 		resp, err := scanner.client.Get(uri)
 		if err != nil {
@@ -152,9 +173,24 @@ func (scanner *Scanner) checkURL(uri string) *Result {
 		_, _ = io.Copy(ioutil.Discard, resp.Body)
 		resp.Body.Close()
 		code = resp.StatusCode
+		location = resp.Header.Get("Location")
 		return nil
 	}, retry.Attempts(10), retry.DelayType(retry.BackOffDelay)); err != nil {
 		return nil
+	}
+
+	var extraWork []string
+
+	if location != "" {
+		if !strings.Contains(location, "://") {
+			if parsed, err := url.Parse(uri); err == nil {
+				if relative, err := url.Parse(location); err == nil {
+					extraWork = append(extraWork, parsed.ResolveReference(relative).String())
+				}
+			}
+		} else {
+			extraWork = append(extraWork, location)
+		}
 	}
 
 	for _, status := range scanner.options.PositiveStatusCodes {
@@ -167,7 +203,15 @@ func (scanner *Scanner) checkURL(uri string) *Result {
 			return &Result{
 				StatusCode: code,
 				URL:        *parsedURL,
+				ExtraWork:  extraWork,
 			}
+		}
+	}
+
+	if len(extraWork) > 0 {
+		return &Result{
+			SupplementaryOnly: true,
+			ExtraWork:         extraWork,
 		}
 	}
 
