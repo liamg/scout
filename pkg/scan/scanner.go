@@ -9,6 +9,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/avast/retry-go"
 	"github.com/sirupsen/logrus"
 )
 
@@ -142,25 +143,29 @@ func (scanner *Scanner) checkURL(uri string) *Result {
 		scanner.options.BusyChan <- uri
 	}
 
-	resp, err := scanner.client.Get(uri)
-	if err != nil {
+	var code int
+	if err := retry.Do(func() error {
+		resp, err := scanner.client.Get(uri)
+		if err != nil {
+			return nil
+		}
+		_, _ = io.Copy(ioutil.Discard, resp.Body)
+		resp.Body.Close()
+		code = resp.StatusCode
+		return nil
+	}, retry.Attempts(10), retry.DelayType(retry.BackOffDelay)); err != nil {
 		return nil
 	}
 
-	_, _ = io.Copy(ioutil.Discard, resp.Body)
-	resp.Body.Close()
-
-	//fmt.Printf("[%d] %s\n", resp.StatusCode, url)
-
 	for _, status := range scanner.options.PositiveStatusCodes {
-		if status == resp.StatusCode {
+		if status == code {
 			parsedURL, err := url.Parse(uri)
 			if err != nil {
 				return nil
 			}
 
 			return &Result{
-				StatusCode: resp.StatusCode,
+				StatusCode: code,
 				URL:        *parsedURL,
 			}
 		}
@@ -168,9 +173,3 @@ func (scanner *Scanner) checkURL(uri string) *Result {
 
 	return nil
 }
-
-// strategy to generate urls? directories + what file extensions?
-
-// word list? built in or external?
-
-// recursive?

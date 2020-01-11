@@ -3,6 +3,7 @@ module github.com/liamg/scout
 go 1.13
 
 require (
+	github.com/avast/retry-go v2.4.3+incompatible
 	github.com/liamg/tml v0.2.0
 	github.com/magiconair/properties v1.8.0
 	github.com/sirupsen/logrus v1.4.2
