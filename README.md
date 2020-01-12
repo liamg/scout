@@ -2,7 +2,7 @@
 
 [![Travis Build Status](https://travis-ci.org/liamg/scout.svg?branch=master)](https://travis-ci.org/liamg/scout)
 
-Scout is a URL fuzzer for discovering undisclosed files and directories on a web server. 
+Scout is a URL fuzzer for discovering undisclosed VHOSTS, files and directories on a web server. 
 
 <p align="center">
   <img width="746" height="417" src="./demo.png" />
