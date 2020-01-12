@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestScanner(t *testing.T) {
+func TestURLScanner(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
@@ -30,7 +30,7 @@ func TestScanner(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	scanner := NewScanner(&Options{
+	scanner := NewURLScanner(&URLOptions{
 		TargetURL:   *parsed,
 		Parallelism: 100,
 	})
@@ -45,7 +45,7 @@ func TestScanner(t *testing.T) {
 
 }
 
-func TestRedirects(t *testing.T) {
+func TestURLScannerWithRedirects(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
@@ -64,7 +64,7 @@ func TestRedirects(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	scanner := NewScanner(&Options{
+	scanner := NewURLScanner(&URLOptions{
 		TargetURL:           *parsed,
 		Parallelism:         100,
 		PositiveStatusCodes: []int{http.StatusOK},
