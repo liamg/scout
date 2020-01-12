@@ -10,6 +10,8 @@ Scout is a URL fuzzer for discovering undisclosed files and directories on a web
 
 A full word list is included in the binary, meaning maximum portability and minimal configuration. Aim and fire!
 
+## Usage
+
 ```bash
 
 Usage:
@@ -24,6 +26,12 @@ Flags:
   -w, --wordlist string          Path to wordlist file. If this is not specified an internal wordlist will be used.
 
 ```
+
+
+### Discover URLs
+
+### Discover VHOSTs
+
 
 ## Installation
 

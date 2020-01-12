@@ -30,7 +30,7 @@ func TestScanner(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	scanner := NewScanner(&Options{
+	scanner := NewURLScanner(&URLOptions{
 		TargetURL:   *parsed,
 		Parallelism: 100,
 	})
@@ -64,7 +64,7 @@ func TestRedirects(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	scanner := NewScanner(&Options{
+	scanner := NewURLScanner(&URLOptions{
 		TargetURL:           *parsed,
 		Parallelism:         100,
 		PositiveStatusCodes: []int{http.StatusOK},

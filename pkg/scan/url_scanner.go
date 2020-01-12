@@ -13,15 +13,15 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type Scanner struct {
+type URLScanner struct {
 	client  *http.Client
-	options *Options
+	options *URLOptions
 }
 
-func NewScanner(opt *Options) *Scanner {
+func NewURLScanner(opt *URLOptions) *URLScanner {
 
 	if opt == nil {
-		opt = &DefaultOptions
+		opt = &DefaultURLOptions
 	}
 
 	opt.Inherit()
@@ -38,18 +38,18 @@ func NewScanner(opt *Options) *Scanner {
 		client.Transport = http.DefaultTransport
 	}
 
-	return &Scanner{
+	return &URLScanner{
 		options: opt,
 		client:  client,
 	}
 }
 
-func (scanner *Scanner) Scan() ([]url.URL, error) {
+func (scanner *URLScanner) Scan() ([]url.URL, error) {
 
 	// todo check url is well formed, check hostname exists etc.
 
 	jobs := make(chan string, scanner.options.Parallelism)
-	results := make(chan Result, scanner.options.Parallelism)
+	results := make(chan URLResult, scanner.options.Parallelism)
 
 	wg := sync.WaitGroup{}
 
@@ -127,10 +127,6 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 	wg.Wait()
 	close(results)
 
-	if scanner.options.BusyChan != nil {
-		close(scanner.options.BusyChan)
-	}
-
 	logrus.Debug("Waiting for results...")
 
 	<-waitChan
@@ -139,8 +135,21 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 
 	for _, work := range extraWork {
 		if result := scanner.checkURL(work); result != nil {
-			foundURLs = append(foundURLs, result.URL)
+			var found bool
+			for _, url := range foundURLs {
+				if url == result.URL {
+					found = true
+					break
+				}
+			}
+			if !found {
+				foundURLs = append(foundURLs, result.URL)
+			}
 		}
+	}
+
+	if scanner.options.BusyChan != nil {
+		close(scanner.options.BusyChan)
 	}
 
 	logrus.Debug("Complete!")
@@ -148,7 +157,7 @@ func (scanner *Scanner) Scan() ([]url.URL, error) {
 	return foundURLs, nil
 }
 
-func (scanner *Scanner) worker(jobs <-chan string, results chan<- Result) {
+func (scanner *URLScanner) worker(jobs <-chan string, results chan<- URLResult) {
 	for j := range jobs {
 		if result := scanner.checkURL(j); result != nil {
 			results <- *result
@@ -157,7 +166,7 @@ func (scanner *Scanner) worker(jobs <-chan string, results chan<- Result) {
 }
 
 // hit a url - is it one of certain response codes? leave connections open!
-func (scanner *Scanner) checkURL(uri string) *Result {
+func (scanner *URLScanner) checkURL(uri string) *URLResult {
 
 	if scanner.options.BusyChan != nil {
 		scanner.options.BusyChan <- uri
@@ -200,7 +209,7 @@ func (scanner *Scanner) checkURL(uri string) *Result {
 				return nil
 			}
 
-			return &Result{
+			return &URLResult{
 				StatusCode: code,
 				URL:        *parsedURL,
 				ExtraWork:  extraWork,
@@ -209,7 +218,7 @@ func (scanner *Scanner) checkURL(uri string) *Result {
 	}
 
 	if len(extraWork) > 0 {
-		return &Result{
+		return &URLResult{
 			SupplementaryOnly: true,
 			ExtraWork:         extraWork,
 		}
