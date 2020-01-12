@@ -16,6 +16,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var ip string
+var port int
+var useSSL bool
+var contentHashing bool
+
 var vhostCmd = &cobra.Command{
 	Use:   "vhost [base_domain]",
 	Short: "Discover VHOSTs on a given web server.",
@@ -39,6 +44,10 @@ var vhostCmd = &cobra.Command{
 
 		baseDomain := args[0]
 
+		if strings.HasPrefix(baseDomain, "https://") {
+			useSSL = true
+		}
+
 		if parsedURL, err := url.Parse(args[0]); err == nil && parsedURL.Host != "" {
 			baseDomain = parsedURL.Host
 		}
@@ -47,9 +56,7 @@ var vhostCmd = &cobra.Command{
 			baseDomain = baseDomain[:strings.Index(baseDomain, "/")]
 		}
 
-		panic(baseDomain)
-
-		resultChan := make(chan scan.URLResult)
+		resultChan := make(chan scan.VHOSTResult)
 		busyChan := make(chan string, 0x400)
 
 		var intStatusCodes []int
@@ -63,14 +70,25 @@ var vhostCmd = &cobra.Command{
 			intStatusCodes = append(intStatusCodes, i)
 		}
 
-		options := &scan.URLOptions{
-			PositiveStatusCodes: intStatusCodes,
-			ResultChan:          resultChan,
-			BusyChan:            busyChan,
-			Parallelism:         parallelism,
-			Extensions:          extensions,
-			Filename:            filename,
-			SkipSSLVerification: skipSSLVerification,
+		ipStr := ip
+		if ipStr == "" {
+			ipStr = "-"
+		}
+
+		portStr := strconv.Itoa(port)
+		if port == 0 {
+			portStr = "-"
+		}
+
+		options := &scan.VHOSTOptions{
+			BaseDomain:     baseDomain,
+			Parallelism:    parallelism,
+			ResultChan:     resultChan,
+			BusyChan:       busyChan,
+			UseSSL:         useSSL,
+			IP:             ip,
+			Port:           port,
+			ContentHashing: contentHashing,
 		}
 		if wordlistPath != "" {
 			var err error
@@ -84,19 +102,21 @@ var vhostCmd = &cobra.Command{
 
 		tml.Printf(
 			`
-<blue>[</blue><yellow>+</yellow><blue>] Target URL</blue><yellow>      %s
+<blue>[</blue><yellow>+</yellow><blue>] Base Domain</blue><yellow>     %s
 <blue>[</blue><yellow>+</yellow><blue>] Routines</blue><yellow>        %d 
-<blue>[</blue><yellow>+</yellow><blue>] Extensions</blue><yellow>      %s 
-<blue>[</blue><yellow>+</yellow><blue>] Positive Codes</blue><yellow>  %s
+<blue>[</blue><yellow>+</yellow><blue>] IP</blue><yellow>              %s 
+<blue>[</blue><yellow>+</yellow><blue>] Port</blue><yellow>            %s 
+<blue>[</blue><yellow>+</yellow><blue>] Using SSL</blue><yellow>       %t
 
 `,
-			options.TargetURL.String(),
+			options.BaseDomain,
 			options.Parallelism,
-			strings.Join(options.Extensions, ","),
-			strings.Join(statusCodes, ","),
+			ipStr,
+			portStr,
+			options.UseSSL,
 		)
 
-		scanner := scan.NewURLScanner(options)
+		scanner := scan.NewVHOSTScanner(options)
 
 		waitChan := make(chan struct{})
 
@@ -105,12 +125,15 @@ var vhostCmd = &cobra.Command{
 
 		go func() {
 			for result := range resultChan {
-				importantOutputChan <- tml.Sprintf("<blue>[</blue><yellow>%d</yellow><blue>]</blue> %s\n", result.StatusCode, result.URL.String())
+				importantOutputChan <- tml.Sprintf("<blue>[</blue><yellow>%d</yellow><blue>]</blue> %s\n", result.StatusCode, result.VHOST)
 			}
 			close(waitChan)
 		}()
 
 		go func() {
+			defer func() {
+				_ = recover()
+			}()
 			for uri := range busyChan {
 				genericOutputChan <- tml.Sprintf("Checking %s...", uri)
 			}
@@ -165,6 +188,11 @@ var vhostCmd = &cobra.Command{
 }
 
 func init() {
+
+	vhostCmd.Flags().BoolVar(&useSSL, "ssl", useSSL, "Use HTTPS when connecting to the server.")
+	vhostCmd.Flags().StringVar(&ip, "ip", ip, "IP address to connect to - defaults to the DNS A record for the base domain.")
+	vhostCmd.Flags().IntVar(&port, "port", port, "Port to connect to - defaults to 80 or 443 if --ssl is set.")
+	vhostCmd.Flags().BoolVar(&contentHashing, "hash-contents", contentHashing, "Hash each response body to detect differences for catch-all scenarios.")
 
 	rootCmd.AddCommand(vhostCmd)
 }

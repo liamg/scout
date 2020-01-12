@@ -1,14 +1,16 @@
 package scan
 
 import (
+	"context"
+	"crypto/md5"
 	"crypto/tls"
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net"
 	"net/http"
-	"net/url"
-	"strings"
 	"sync"
+	"time"
 
 	"github.com/avast/retry-go"
 	"github.com/sirupsen/logrus"
@@ -17,6 +19,8 @@ import (
 type VHOSTScanner struct {
 	client  *http.Client
 	options *VHOSTOptions
+	badCode int
+	badHash string
 }
 
 func NewVHOSTScanner(opt *VHOSTOptions) *VHOSTScanner {
@@ -28,13 +32,14 @@ func NewVHOSTScanner(opt *VHOSTOptions) *VHOSTScanner {
 	opt.Inherit()
 
 	client := &http.Client{
-		Timeout: opt.Timeout,
+		Timeout:   opt.Timeout,
+		Transport: http.DefaultTransport,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
 	}
 
-	if opt.SkipSSLVerification {
-		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-		client.Transport = http.DefaultTransport
-	}
+	client.Transport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 
 	return &VHOSTScanner{
 		options: opt,
@@ -42,10 +47,77 @@ func NewVHOSTScanner(opt *VHOSTOptions) *VHOSTScanner {
 	}
 }
 
+func (scanner *VHOSTScanner) forceRequestsToIP(ip net.IP) {
+	dialer := &net.Dialer{
+		Timeout: scanner.options.Timeout,
+	}
+	scanner.client.Transport.(*http.Transport).DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
+		port := scanner.options.Port
+		if port == 0 {
+			if scanner.options.UseSSL {
+				port = 443
+			} else {
+				port = 80
+			}
+		}
+		return dialer.DialContext(ctx, network, fmt.Sprintf("%s:%d", ip, port))
+	}
+}
+
+func md5Hash(input string) string {
+	hash := md5.New()
+	io.WriteString(hash, input)
+	return fmt.Sprintf("%x", hash.Sum(nil))
+}
+
 func (scanner *VHOSTScanner) Scan() ([]string, error) {
 
+	logrus.Debug("Looking up base domain...")
+
+	ip := scanner.options.IP
+	if ip != "" {
+		if parsed := net.ParseIP(ip); parsed == nil {
+			return nil, fmt.Errorf("invalid IP address specified: %s", ip)
+		}
+	} else {
+		ips, err := net.LookupIP(scanner.options.BaseDomain)
+		if err != nil {
+			return nil, fmt.Errorf("failed to resolve base domain: %s", err)
+		}
+		if len(ips) == 0 {
+			return nil, fmt.Errorf("failed to resolve base domain: no A record found")
+		}
+		ip = ips[0].String()
+	}
+
+	scanner.forceRequestsToIP(net.ParseIP(ip))
+
+	badVHOST := fmt.Sprintf("%s.%s", md5Hash(time.Now().String()), scanner.options.BaseDomain)
+
+	url := "http://" + badVHOST
+
+	if scanner.options.UseSSL {
+		url = "https://" + badVHOST
+	}
+
+	resp, err := scanner.client.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	scanner.badCode = resp.StatusCode
+	if scanner.options.ContentHashing {
+		data, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+		scanner.badHash = md5Hash(string(data))
+	} else {
+		io.Copy(ioutil.Discard, resp.Body)
+	}
+	resp.Body.Close()
+
 	jobs := make(chan string, scanner.options.Parallelism)
-	results := make(chan URLResult, scanner.options.Parallelism)
+	results := make(chan VHOSTResult, scanner.options.Parallelism)
 
 	wg := sync.WaitGroup{}
 
@@ -64,22 +136,14 @@ func (scanner *VHOSTScanner) Scan() ([]string, error) {
 	logrus.Debug("Starting results gatherer...")
 
 	waitChan := make(chan struct{})
-	var foundURLs []url.URL
-
-	var extraWork []string
+	var foundVHOSTs []string
 
 	go func() {
 		for result := range results {
-			if result.ExtraWork != nil {
-				extraWork = append(extraWork, result.ExtraWork...)
-			}
-			if result.SupplementaryOnly {
-				continue
-			}
 			if scanner.options.ResultChan != nil {
 				scanner.options.ResultChan <- result
 			}
-			foundURLs = append(foundURLs, result.URL)
+			foundVHOSTs = append(foundVHOSTs, result.VHOST)
 		}
 		if scanner.options.ResultChan != nil {
 			close(scanner.options.ResultChan)
@@ -89,11 +153,6 @@ func (scanner *VHOSTScanner) Scan() ([]string, error) {
 
 	logrus.Debug("Adding jobs...")
 
-	// add urls to scan...
-	prefix := scanner.options.TargetURL.String()
-	if !strings.HasSuffix(prefix, "/") {
-		prefix = prefix + "/"
-	}
 	for {
 		if word, err := scanner.options.Wordlist.Next(); err != nil {
 			if err != io.EOF {
@@ -104,15 +163,8 @@ func (scanner *VHOSTScanner) Scan() ([]string, error) {
 			if word == "" {
 				continue
 			}
-			uri := prefix + word
-			if scanner.options.Filename != "" {
-				jobs <- uri + "/" + scanner.options.Filename
-			} else {
-				jobs <- uri
-				for _, ext := range scanner.options.Extensions {
-					jobs <- uri + "." + ext
-				}
-			}
+			vhost := word + "." + scanner.options.BaseDomain
+			jobs <- vhost
 		}
 	}
 
@@ -133,10 +185,10 @@ func (scanner *VHOSTScanner) Scan() ([]string, error) {
 
 	logrus.Debug("Complete!")
 
-	return foundURLs, nil
+	return foundVHOSTs, nil
 }
 
-func (scanner *VHOSTScanner) worker(jobs <-chan string, results chan<- URLResult) {
+func (scanner *VHOSTScanner) worker(jobs <-chan string, results chan<- VHOSTResult) {
 	for j := range jobs {
 		if result := scanner.checkVHOST(j); result != nil {
 			results <- *result
@@ -145,38 +197,48 @@ func (scanner *VHOSTScanner) worker(jobs <-chan string, results chan<- URLResult
 }
 
 // hit a url - is it one of certain response codes? leave connections open!
-func (scanner *VHOSTScanner) checkVHOST(vhost string) *URLResult {
+func (scanner *VHOSTScanner) checkVHOST(vhost string) *VHOSTResult {
 
 	if scanner.options.BusyChan != nil {
 		scanner.options.BusyChan <- vhost
 	}
 
 	var code int
+	var hash string
+
+	url := "http://" + vhost
+
+	if scanner.options.UseSSL {
+		url = "https://" + vhost
+	}
 
 	if err := retry.Do(func() error {
-		resp, err := scanner.client.Get(fmt.Sprintf())
+		resp, err := scanner.client.Get(url)
 		if err != nil {
 			return nil
 		}
-		_, _ = io.Copy(ioutil.Discard, resp.Body)
+
+		if scanner.options.ContentHashing {
+			data, err := ioutil.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			hash = md5Hash(string(data))
+		} else {
+			io.Copy(ioutil.Discard, resp.Body)
+		}
 		resp.Body.Close()
+
 		code = resp.StatusCode
 		return nil
 	}, retry.Attempts(10), retry.DelayType(retry.BackOffDelay)); err != nil {
 		return nil
 	}
 
-	for _, status := range scanner.options.PositiveStatusCodes {
-		if status == code {
-			parsedURL, err := url.Parse(uri)
-			if err != nil {
-				return nil
-			}
-
-			return &VHOSTResult{
-				StatusCode: code,
-				URL:        *parsedURL,
-			}
+	if code != scanner.badCode || (scanner.options.ContentHashing && hash != scanner.badHash) {
+		return &VHOSTResult{
+			StatusCode: code,
+			VHOST:      vhost,
 		}
 	}
 

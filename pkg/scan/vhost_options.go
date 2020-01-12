@@ -9,15 +9,17 @@ import (
 )
 
 type VHOSTOptions struct {
-	BaseDomain          string         // target url
-	Timeout             time.Duration  // http request timeout
-	Parallelism         int            // parallel routines
-	ResultChan          chan URLResult // chan to return results on - otherwise will be returned in slice
-	BusyChan            chan string    // chan to use to update current job
+	BaseDomain          string           // target url
+	Timeout             time.Duration    // http request timeout
+	Parallelism         int              // parallel routines
+	ResultChan          chan VHOSTResult // chan to return results on - otherwise will be returned in slice
+	BusyChan            chan string      // chan to use to update current job
 	Wordlist            wordlist.Wordlist
 	SkipSSLVerification bool
 	UseSSL              bool
+	IP                  string
 	Port                int
+	ContentHashing      bool
 }
 
 type VHOSTResult struct {
@@ -38,7 +40,7 @@ func (opt *VHOSTOptions) Inherit() {
 		opt.Parallelism = DefaultURLOptions.Parallelism
 	}
 	if opt.Wordlist == nil {
-		wordlistBytes, err := data.Asset("assets/wordlist.txt")
+		wordlistBytes, err := data.Asset("assets/vhost.txt")
 		if err != nil {
 			wordlistBytes = []byte{}
 		}

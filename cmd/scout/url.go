@@ -109,6 +109,9 @@ var urlCmd = &cobra.Command{
 		}()
 
 		go func() {
+			defer func() {
+				_ = recover()
+			}()
 			for uri := range busyChan {
 				genericOutputChan <- tml.Sprintf("Checking %s...", uri)
 			}
