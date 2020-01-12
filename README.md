@@ -82,18 +82,18 @@ $ scout vhost https://google.com
   [+] Port            - 
   [+] Using SSL       true
   
-  [302] account.google.com
-  [302] accounts.google.com
-  [301] blog.google.com
-  [200] code.google.com
-  [301] dev.google.com
-  [302] local.google.com
-  [302] m.google.com
-  [301] mail.google.com
-  [301] mobile.google.com
-  [200] www.google.com
-  [301] admin.google.com
-  [302] chat.google.com
+  account.google.com
+  accounts.google.com
+  blog.google.com
+  code.google.com
+  dev.google.com
+  local.google.com
+  m.google.com
+  mail.google.com
+  mobile.google.com
+  www.google.com
+  admin.google.com
+  chat.google.com
   
   Scan complete. 12 results found.
 

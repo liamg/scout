@@ -125,7 +125,7 @@ var vhostCmd = &cobra.Command{
 
 		go func() {
 			for result := range resultChan {
-				importantOutputChan <- tml.Sprintf("<blue>[</blue><yellow>%d</yellow><blue>]</blue> %s\n", result.StatusCode, result.VHOST)
+				importantOutputChan <- tml.Sprintf("%s\n", result.VHOST)
 			}
 			close(waitChan)
 		}()
