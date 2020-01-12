@@ -21,6 +21,7 @@ type URLOptions struct {
 	Extensions          []string
 	Filename            string
 	SkipSSLVerification bool
+	BackupExtensions    []string
 }
 
 type URLResult struct {
@@ -44,9 +45,10 @@ var DefaultURLOptions = URLOptions{
 		http.StatusMovedPermanently,
 		http.StatusFound,
 	},
-	Timeout:     time.Second * 5,
-	Parallelism: 10,
-	Extensions:  []string{"php", "htm", "html"},
+	Timeout:          time.Second * 5,
+	Parallelism:      10,
+	Extensions:       []string{"php", "htm", "html"},
+	BackupExtensions: []string{"~", ".bak", ".BAK", ".old", ".backup", ".txt", ".OLD", ".BACKUP", "1", "2", "_"},
 }
 
 func (opt *URLOptions) Inherit() {
@@ -68,5 +70,8 @@ func (opt *URLOptions) Inherit() {
 	}
 	if len(opt.Extensions) == 0 {
 		opt.Extensions = DefaultURLOptions.Extensions
+	}
+	if len(opt.BackupExtensions) == 0 {
+		opt.BackupExtensions = DefaultURLOptions.BackupExtensions
 	}
 }

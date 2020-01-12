@@ -209,6 +209,10 @@ func (scanner *URLScanner) checkURL(uri string) *URLResult {
 				return nil
 			}
 
+			for _, ext := range scanner.options.BackupExtensions {
+				extraWork = append(extraWork, uri+ext)
+			}
+
 			return &URLResult{
 				StatusCode: code,
 				URL:        *parsedURL,
