@@ -35,21 +35,19 @@ type URLResult struct {
 var DefaultURLOptions = URLOptions{
 	PositiveStatusCodes: []int{
 		http.StatusOK,
-		http.StatusFound,
-		http.StatusMovedPermanently,
 		http.StatusBadRequest,
-		http.StatusForbidden,
 		http.StatusInternalServerError,
 		http.StatusMethodNotAllowed,
 		http.StatusNoContent,
 		http.StatusUnauthorized,
-		http.StatusMovedPermanently,
+		http.StatusForbidden,
 		http.StatusFound,
+		http.StatusMovedPermanently,
 	},
 	Timeout:          time.Second * 5,
 	Parallelism:      10,
-	Extensions:       []string{"php", "htm", "html"},
-	BackupExtensions: []string{"~", ".bak", ".BAK", ".old", ".backup", ".txt", ".OLD", ".BACKUP", "1", "2", "_"},
+	Extensions:       []string{"php", "htm", "html", "txt"},
+	BackupExtensions: []string{"~", ".bak", ".BAK", ".old", ".backup", ".txt", ".OLD", ".BACKUP", "1", "2", "_", ".1", ".2"},
 }
 
 func (opt *URLOptions) Inherit() {

@@ -9,6 +9,7 @@ api
 app
 archive
 b
+backup
 beta
 beta-www
 blog

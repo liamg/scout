@@ -5,7 +5,7 @@
 Scout is a URL fuzzer for discovering undisclosed VHOSTS, files and directories on a web server. 
 
 <p align="center">
-  <img width="746" height="417" src="./demo.png" />
+  <img width="929" height="502" src="./demo.gif" />
 </p>
 
 A full word list is included in the binary, meaning maximum portability and minimal configuration. Aim and fire!
@@ -37,6 +37,26 @@ Use "scout [command] --help" for more information about a command.
 
 
 ### Discover URLs
+
+#### Flags
+
+##### `-x, --extensions`
+
+File extensions to detect. (default `php,htm,html,txt`])
+
+##### `-f, --filename`
+ 
+Filename to seek in the directory being searched. Useful when all directories report 404 status.
+
+##### `-H, --header`
+
+Extra header to send with requests e.g. `-H "Cookie: PHPSESSID=blah"` 
+
+##### `-s, --status-codes`
+
+HTTP status codes which indicate a positive find. (default `200,400,403,500,405,204,401,301,302`)
+
+#### Full example
 
 ```bash
 $ scout url http://192.168.1.1

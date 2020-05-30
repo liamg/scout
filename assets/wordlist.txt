@@ -317,7 +317,6 @@ downloads
 dev
 com_weblinks
 com_search
-check.bat
 build
 T_IMG
 Server
@@ -431,7 +430,6 @@ zImage
 upgrade
 updates
 theme
-sqlqhit.asp
 sk_SK
 simplecommands
 server
@@ -572,7 +570,6 @@ advhr
 _plugins
 _mem_bin
 WINDOWS
-ViewCode.asp
 SpryAssets
 Rpc
 Release
@@ -664,7 +661,6 @@ photo_events
 passwd
 pass
 other
-order.log
 options
 network
 netstat
@@ -690,7 +686,6 @@ design
 dbg
 cssOutsider
 cr
-cmd.exe
 cli
 cart
 button
@@ -813,8 +808,6 @@ sun2
 sshots
 sparc
 siteadmin
-shtml.dll
-showcode.asp
 shark
 shared
 secrets
@@ -830,11 +823,9 @@ pl
 pics
 phpxmlrpc
 phpgacl
-pass.txt
 par2
 papers
 overrides
-orders.txt
 openid
 oordir
 oldfiles
@@ -856,8 +847,6 @@ memberfiles
 language_files
 jscalendar
 issamples
-index.cgi
-index.cfm
 import
 idn
 htdocs
@@ -902,7 +891,6 @@ alex
 albums
 agentes
 adsamples
-adpassword.txt
 admisapi
 adminweb
 adminuser
@@ -912,9 +900,6 @@ admcgi
 adm
 addons
 ad
-active.log
-access.txt
-access.log
 _testcases
 Zend
 Yadis
@@ -922,7 +907,6 @@ Xtras
 XML
 Util
 Templates
-SQLQHit.asp
 SETUPDIR
 Response
 Resource
@@ -1082,7 +1066,6 @@ wwwstats
 work
 wombat
 wlw
-win.ini
 vms
 vlsi
 virus
@@ -1124,7 +1107,6 @@ slices
 sl
 sk
 si
-shtml.exe
 shrdlu
 share
 sh
@@ -1178,7 +1160,6 @@ maui
 matrix
 marlboro
 mainsail
-main.cgi
 lover
 logsaccess_log
 link
@@ -1214,7 +1195,6 @@ gandalf
 ga
 fruit
 foobar
-files.pl
 fasttrack
 excalibur
 events
@@ -1227,7 +1207,6 @@ easton
 dvd
 dv
 dopey
-domcfg.nsf
 documentation
 dm
 dl
@@ -1262,11 +1241,9 @@ com_categories
 com_cache
 com_admin
 com
-codebrws.asp
 cm
 cls
 cic
-catalog_type.asp
 cat
 caliban
 caip
@@ -1324,7 +1301,6 @@ Writer
 WINXP
 WIN2000
 View
-SYMBOLS.PRI
 Photos
 Pear
 PDG_Cart
@@ -1980,7 +1956,6 @@ wylie
 wylbur
 wye
 wwwthreads
-www.egoscriptor.com
 wwaccc
 wvu
 wvnvaxb
@@ -2177,7 +2152,6 @@ web_media
 web_images
 web_flash
 web_documents
-web.log
 weaver
 wdl9
 wdl8
@@ -2404,7 +2378,6 @@ vet
 vesta
 vest
 vertex
-version.dat
 versi
 verse
 versailles
@@ -3175,7 +3148,6 @@ strait
 strack
 strabane
 stowe
-story.pl
 storch
 stony
 stonewall
@@ -3212,7 +3184,6 @@ statistics
 statistic
 statis
 stateline
-stat_what.log
 starshine
 starlab
 star
@@ -3519,7 +3490,6 @@ setter
 sesun
 sesame
 servlets
-service.pwd
 server_stats
 serval
 serv2
@@ -3535,7 +3505,6 @@ sent
 sensing
 senior
 seneca
-sendmail.cfm
 sendmail
 sembach
 sem
@@ -4305,7 +4274,6 @@ quipus
 quince
 quien
 quetzal
-query.asp
 queens
 quasar
 quartz
@@ -4316,8 +4284,6 @@ quail
 quabbin
 qtp
 qt
-qsumrhit.htw
-qfullhit.htw
 qedvb
 qat
 qa3
@@ -5623,7 +5589,6 @@ patch2
 patch
 patagonia
 pat
-passwd.txt
 pascal
 partner
 partenaire
@@ -5739,7 +5704,6 @@ oreo
 oreland
 oregon
 oregano
-orders.log
 order_total
 order
 ord
@@ -5759,7 +5723,6 @@ ophth
 ophelia
 operations
 openldap
-openfile.cfm
 open
 opel
 opcon31
@@ -6275,7 +6238,6 @@ msstate
 mss
 msr
 mspc
-mslanman.dos
 msfc
 msddnpent
 msc
@@ -6864,7 +6826,6 @@ loki
 loire
 lognet2
 lognet1
-login.jsp
 logicon
 logiclab
 logi
@@ -7443,7 +7404,6 @@ indiantown
 indianto
 indianola
 indiana
-index.jsp
 incsys
 incremental
 incirlik
@@ -8478,7 +8438,6 @@ extender
 extend
 extaci
 expres
-exprcalc.cfm
 expo
 expedius
 exp1
@@ -10091,7 +10050,6 @@ clipr
 clintonville
 clinton
 cliffmine
-clients.txt
 cleveland
 cleopatra
 cleona
@@ -10384,7 +10342,6 @@ cc4
 cc3
 cc2
 cc1
-cc.txt
 cbc
 cayuga
 caxton
@@ -11275,7 +11232,6 @@ apus
 apso
 apsd
 aps
-application.cfm
 applepie
 applegate3
 applegate2
@@ -11307,9 +11263,6 @@ anthill
 antares
 ant
 ansbach
-ans.pl
-anot3.htr
-anot.htr
 anoc1
 annville
 annm
@@ -11516,11 +11469,6 @@ afc
 afalc
 afal
 afafc
-aexp4b.htr
-aexp4.htr
-aexp3.htr
-aexp2.htr
-aexp.htr
 aestsc
 aestd
 aestc
@@ -11538,8 +11486,6 @@ aed
 ads_data_002
 adobe
 adminlogin
-admin.dll
-admin.asp
 adlv01
 adlu08
 adlu07
@@ -11601,7 +11547,6 @@ acns
 acmetonia
 acid
 achilles
-achg.htr
 acfp
 acfis
 acf9
@@ -11739,7 +11684,6 @@ HOSTS
 Google_Checkout
 Google_Analytics
 Gift_Registry
-GWWEB.EXE
 GDIPLUS
 Froogle
 Flyout_Menus
@@ -11850,7 +11794,6 @@ Admin_files
 002
 0015
 001
-.pwd
 .passwrd
 .password
 .passwd
@@ -11907,7 +11850,6 @@ tango
 tabletools
 tableresize
 ta_LK
-symbols.pri
 symantec
 sybase
 swansea
@@ -12145,7 +12087,6 @@ deepsea
 dcp
 db_passwords
 db_password
-db_data.sql
 day
 datepicker
 dashboard
@@ -12283,7 +12224,6 @@ Marker
 MandrivaLinux
 Mandrakelinux
 Mandrake
-MSLANMAN.DOS
 Linksys
 Lexer
 Letter
@@ -12401,7 +12341,6 @@ Adobe
 0008
 0005
 0003
-.svn
 .spamassassin
 .project
 .gtkrc
@@ -12492,7 +12431,6 @@ zh_cn
 zfn
 zfjanet
 zfe
-zero.cfm
 zero
 zeppo
 zeppelin
@@ -12690,10 +12628,6 @@ wy
 wxyz
 wwwstatswww
 wwwjoin
-wwwboard.pl
-wwwboard.cgi
-wwwadmin.pl
-wwwadmin.cgi
 wwu
 wwc
 wwb
@@ -12736,13 +12670,11 @@ wscnet2
 wscnet1
 wsclark
 wsc2
-ws_ftp.ini
 ws30
 ws02
 ws
 wrqnet
 wrq
-writeto.cnf
 wrigley
 wri
 wrfsea
@@ -13107,7 +13039,6 @@ wacaenet
 wa6itv
 wa
 w6yx
-w3tvars.pm
 w3perl
 w2k
 vz
@@ -13241,11 +13172,8 @@ villa
 vill
 vil
 vigyan
-viewsource.jsp
 viewnet
 viewlogic
-viewexample.cfm
-viewcode.asp
 videodude
 vics70
 vicksbrg
@@ -13537,7 +13465,6 @@ usfca
 usf
 users_bak
 users3
-users.pwd
 useralbum
 user_prefs
 usenix
@@ -13900,7 +13827,6 @@ ultrafast3
 ultrafast2
 ultrafast1
 ultrafast
-ultraboard.pl
 ultoe
 ultb
 ulsi
@@ -14212,7 +14138,6 @@ tsunami
 tsukuba
 tsugi
 tsu
-tstisapi.dll
 tstc
 tstb
 tss
@@ -14381,11 +14306,9 @@ torino
 toriinet
 torii
 topsy
-topic.jsp
 topgun
 toosilly
 toontown
-tools.NEW
 toolbox
 tool
 toofan
@@ -14412,7 +14335,6 @@ tohoku
 toggleClass
 toggle
 todd
-today.nsf
 tobynet
 toby
 tobie
@@ -14607,16 +14529,7 @@ testamy
 testa
 test_dir
 test0
-test.txt
 test.php3
-test.jsp
-test.idw
-test.idq
-test.idc
-test.ida
-test.htw
-test.htr
-test.bat
 test.aspx
 tessi
 tesc
@@ -14677,9 +14590,7 @@ temporary
 temporal
 templates1
 templater
-template.cgi
 tempe
-temp.txt
 tem2
 tem
 teluq
@@ -15017,7 +14928,6 @@ svskt
 sverdrupmsfc
 svd
 svcentld
-svcacl.cnf
 sva
 sv1
 sv0
@@ -15143,7 +15053,6 @@ subnet3
 subnet
 subnano
 submm
-submit.cgi
 submicron
 submept
 subir
@@ -15196,7 +15105,6 @@ strath
 strategic
 strasbourg
 storm
-storemgr.pw
 storemgr
 stord
 stopdesign
@@ -15260,7 +15168,6 @@ stbghnet
 stax
 stavaft
 stats_old
-stats.txt
 statoil
 station
 state2
@@ -15354,7 +15261,6 @@ ssbnet
 ssb
 ssa
 ss1
-ss.cfg
 srzuk1
 srwmd
 srvr3
@@ -15508,10 +15414,8 @@ southern
 southdown
 south
 sourmilk
-sourcewindow.cfm
 sourcearea
 source_files
-source.asp
 soumgw
 soum
 soul
@@ -15519,7 +15423,6 @@ soto
 sosgnet
 sos
 sortable
-sort.jsp
 sophomore
 sophocles
 sop
@@ -15619,7 +15522,6 @@ smrl1
 smrl
 smreportsviewer
 smreports
-smpolicy.mdb
 smooth
 smokedham
 smo
@@ -15740,9 +15642,7 @@ siteminderagent
 siteminder
 sitemgr
 site_map
-siteUserMod.cgi
 siteUserMod
-site.csc
 sitaatl
 sisyphus
 sisu
@@ -15838,9 +15738,7 @@ shownetb2
 shownetb
 showneta
 shownet
-showfile.asp
 shorewood
-shopping_cart.mdb
 shopper.conf
 shopper
 shoonya
@@ -15955,7 +15853,6 @@ sets4
 sets2
 sets13
 sets
-setpasswd.cgi
 seton
 seti
 setc
@@ -15974,12 +15871,8 @@ servix
 servio
 servicios
 servicio
-services.cnf
 service2
 service1
-service.stp
-service.grp
-service.cnf
 serverstats
 server3
 server2
@@ -16028,7 +15921,6 @@ sensei
 senri
 senecac
 seneca1
-sendmail.inc
 semperfi
 semo
 seminarapc
@@ -16074,7 +15966,6 @@ secu
 sections
 secreto
 secretariat
-secret.txt
 secondmac
 secapl
 seattleu
@@ -16083,10 +15974,6 @@ seaspace
 seas2
 sears
 searle
-search97.vts
-search.vts
-search.pl
-search.asp
 seagate
 seacomnet
 seabreeze
@@ -16213,7 +16100,6 @@ scaqmdnet
 scanix
 scanial
 scania
-scancfg.cgi
 scamper
 scalpel4
 scalpel3
@@ -16354,8 +16240,6 @@ saabnet
 saab9000
 saab900
 sa
-s_97.vts
-s97_cgi.exe
 s97_cgi
 s9
 s8
@@ -16442,7 +16326,6 @@ rtr1
 rtr
 rtpnc
 rtp
-rtm.log
 rtm
 rtifs2
 rtifs1
@@ -16535,9 +16418,6 @@ roseanne
 rosanne
 rosalind
 rootgroup
-root.exe
-root.cfm
-root.asp
 roosevelt
 room24
 room230
@@ -16590,9 +16470,7 @@ rocinante
 roche
 roch
 rocad
-robots.txt
 robots
-robot.txt
 roble9
 roble8
 roble7
@@ -16857,10 +16735,8 @@ reinmuth
 reiems
 regula
 regler
-registrations.txt
 registration
 registered
-register.txt
 regir
 region
 regina
@@ -16921,8 +16797,6 @@ realtime
 realtim
 realthing
 realport
-realm_.mdb
-realm.mdb
 really
 realfriend
 real
@@ -16964,7 +16838,6 @@ rc4
 rc3
 rc2
 rc1
-rbsserv.mdb
 rbp
 rb211
 raytheonaj
@@ -17070,12 +16943,9 @@ qunit
 quixote
 quintus
 quilty
-quikstore.cfg
-quickstore.cfg
 quickly
 quesig
 query.xsql
-query.idq
 querulous
 quercus
 quench
@@ -17280,7 +17150,6 @@ proftpd_freebsd
 proftpd_debian
 profs1
 profs
-profile.jsp
 prof.
 products
 prodtech
@@ -17291,7 +17160,6 @@ procurement
 procope
 processors
 processor
-process_bug.cgi
 prnode
 prnet2
 prnet1
@@ -17307,7 +17175,6 @@ prior
 prion
 printhost
 printers
-print.cgi
 principia
 princeville
 prince
@@ -17341,7 +17208,6 @@ preload
 preferences
 preakness
 prdnet
-prd.i
 prd
 prcne
 prccom1
@@ -17527,7 +17393,6 @@ pipeorgan
 pintail
 pinkfloyd
 pinguin
-ping.asp
 pinecreek
 pinebluff
 pine50
@@ -17696,7 +17561,6 @@ perseo
 pernet
 perms
 permian
-perlidlc.bat
 perlaki
 perkins
 perinf
@@ -17895,7 +17759,6 @@ pc11
 pc10
 pc02
 pc0
-pbserver.dll
 pbs
 pbox
 pbell
@@ -17921,13 +17784,8 @@ paterson
 patella
 patcon
 pasteur
-passwrd.txt
 passwrd
-passwords.txt
-password.txt
-password.lst
 passwd.php3
-passwd.lst
 passport
 passfile
 passes
@@ -17993,7 +17851,6 @@ pain
 pagoda
 paginenet
 pagenet
-page.cfm
 pafb
 padovanet
 padova
@@ -18081,7 +17938,6 @@ oxast1
 ox3500
 ox
 owu
-owssvr.dll
 ows
 owns
 owners
@@ -18178,7 +18034,6 @@ orinoco
 oriel
 oregradnet
 ore
-order.txt
 orbsemi
 orbot
 orau
@@ -18342,7 +18197,6 @@ ogi
 ogden
 ofutz
 ofsroads
-ofscan.ini
 offuttnet
 offutt1
 offramp
@@ -18516,7 +18370,6 @@ null5
 null4
 null3
 null2
-null.htw
 nul
 nukem
 nugget
@@ -18848,7 +18701,6 @@ newusers
 newtalbotts
 newserv2
 newpudleys
-newpro.cgi
 newportnet
 newpora
 newpioneer
@@ -19071,7 +18923,6 @@ ncc4
 ncc3
 ncc2
 ncc1
-ncbook.cgi
 ncbook
 ncb
 ncavc
@@ -19154,7 +19005,6 @@ nanet
 nan
 namv
 namesrv1
-names.nsf
 names
 named
 name
@@ -19365,7 +19215,6 @@ msc11
 msc10
 msc1
 msads
-msadcs.dll
 mrwonderful
 mrtg
 mrspc2
@@ -19440,7 +19289,6 @@ moviez
 movies
 mousemac
 mountainhome
-mountain.cfg
 mountain
 moulon
 mott
@@ -20218,7 +20066,6 @@ major
 mainz
 maintupl
 mains
-mainframeset.cfm
 maine
 mailserv
 mailroot
@@ -20228,8 +20075,6 @@ maillart
 mailhost
 mailgate
 mail_log_files
-mail.txt
-mail.lst
 maif
 mahesh
 maher
@@ -20547,14 +20392,11 @@ logging
 loggers
 logger
 logg
-logfile.txt
 logdis2
 logdis1
 logancolts
 logan
 logaircomnet
-log.txt
-log.nsf
 lod
 locus
 locke
@@ -21426,7 +21268,6 @@ jeepcj
 jedi
 jdssc
 jds
-jdkRqNotify.exe
 jdbc
 jcuevas
 jcu1
@@ -21800,8 +21641,6 @@ inrs
 inriarocq
 inrets
 inra
-input2.bat
-input.bat
 inpg
 inpe
 innovus1
@@ -21831,7 +21670,6 @@ ingr
 inge
 ing
 infra
-infosrch.cgi
 infoserv
 inforumin
 inforum
@@ -21893,15 +21731,11 @@ indices
 index_files
 index_003
 index_002
-index.stm
 index.php~
 index.php3
-index.php.bak
 index.html~
-index.html.bak
 index.cfml
 index.cfm_files
-index.JSP
 indetechc1
 indetech
 independent
@@ -21929,7 +21763,6 @@ impulse
 improware
 impreso
 imposter
-import.txt
 impab
 impa
 imokay
@@ -21996,7 +21829,6 @@ iit
 iisi
 iisamples
 iirturnh.htwa
-iirturnh.htw
 iirds
 iipo
 iipgate
@@ -22227,7 +22059,6 @@ httpd
 httpclient
 httmat
 httm
-htpasswd.txt
 htpasswd
 htoc12
 hto
@@ -22371,7 +22202,6 @@ honesty
 homewood
 homepic
 home.cfml
-home.cfm
 holyshit
 holyloch
 holtsap1
@@ -22984,8 +22814,6 @@ glxt3
 glxt2
 glxt1
 gloworm
-global_odbc.ini
-global.inc
 gliwinet
 glerl
 glenn
@@ -23043,15 +22871,12 @@ gfdlnet
 gfdl
 geveke
 getty
-gettempdirectory.cfm
 getstuffed
 getlucky
 getlost
 getlaid
 getfucked
-getfile.cfm
 get_version
-getFile.cfm
 gesnet
 gershuny
 germersheim
@@ -23194,7 +23019,6 @@ fuzzbat
 fuzzball
 fuzz
 fuzbat
-fuwww.dll
 fuw
 fuug
 futz
@@ -23248,7 +23072,6 @@ ftpolkb1
 ftpolk
 ftpbox
 ftp_tmp
-ftp.abuledu.org
 ftord
 ftmonroe
 ftmonmth
@@ -23367,10 +23190,8 @@ fraggle
 fractals
 fr_utf8
 fr_ca
-fpsrvadm.exe
 fpsrv
 fpsample
-fpremadm.exe
 fppx10
 fppx08
 fppx07
@@ -23385,13 +23206,10 @@ fpp1
 fpp
 fpdb
 fpd
-fpcount.exe
 fpadmin
 fp6
 fp5
-fp4areg.dll
 fp4
-fp30reg.dll
 fp3
 fp2
 fp1
@@ -23424,8 +23242,6 @@ fotlan
 fos
 forut
 forumz
-forums_.mdb
-forums.mdb
 forumnet
 forty2
 forthx
@@ -23439,7 +23255,6 @@ formsmgr
 formar
 formal_white
 formal
-form_results.txt
 forks
 forkedtounge
 forge
@@ -23483,7 +23298,6 @@ fmnh
 fmi
 fmha
 fmdv
-fm_shell.asp
 flytrap
 flyingleap
 flyingfuck
@@ -23582,8 +23396,6 @@ films
 filetypes
 filesyst
 fileserver
-filelist.dat
-fileexists.cfm
 filebrowser
 fileBrowser
 file9
@@ -23802,7 +23614,6 @@ ext328
 ext2
 ext1
 exsta
-expressions.cfm
 express
 exports
 exponent
@@ -23857,8 +23668,6 @@ everafter
 eventum
 eventlist
 evax
-evaluate.cfm
-eval.cfm
 eva
 eutex
 eutes
@@ -24027,7 +23836,6 @@ eos7a
 eos4a
 eos01a
 eola
-envout.bat
 enviamail
 envia
 entrprisenet
@@ -24037,7 +23845,6 @@ entities
 entinf
 enterprise
 enterkey
-enter_bug.cgi
 enstb
 ensta
 enst
@@ -24134,8 +23941,6 @@ emblg
 embl
 embezzle
 emailclass
-email.txt
-email.lst
 emacs
 em0
 elzip
@@ -24418,7 +24223,6 @@ dwagis3
 dwagis2
 dwagis1
 dvz
-dvwssr.dll
 dvt
 dvlinside
 dvdcaps
@@ -24644,7 +24448,6 @@ donmac
 dong
 don
 domsys
-domlog.nsf
 domiterator
 domainProfile_6
 domainProfile_5
@@ -24916,8 +24719,6 @@ detwnet
 detritus
 detr
 detenet
-details.cgi
-detail.cfm
 det8
 det4lan
 det
@@ -24988,7 +24789,6 @@ delawaretech
 del1
 del
 definetti
-default.jsp
 default.asp\\
 def
 deesse
@@ -25090,7 +24890,6 @@ dclwide
 dcli
 dcl
 dcgate
-dcforum.cgi
 dcenet
 dcem
 dcec30
@@ -25098,9 +24897,7 @@ dcec1
 dccs
 dcccd
 dcc
-dcboard.cgi
 dcaoc
-dcadmin.cgi
 dc9
 dc8
 dc7
@@ -25117,7 +24914,6 @@ dbp
 dbops
 dbm1
 dbhost
-dbconnect.inc
 dbce1
 dbce
 dbc
@@ -25152,7 +24948,6 @@ datanet
 datacor
 datacom
 datac
-database.nsf
 data16
 dat
 dassault
@@ -25234,7 +25029,6 @@ cypress4
 cypress3
 cypress2
 cypress1
-cypress.mdb
 cymru
 cymc1
 cymbeline
@@ -25779,10 +25573,7 @@ codigos
 codename
 codemess_files
 codeigniter
-codebrw2.asp
-codebrw1.asp
 code.php3
-code.asp
 cocos
 cocoa
 coccyx
@@ -25906,7 +25697,6 @@ clts4
 clts3
 clts2
 clts1
-cltreq.asp
 clss2
 clss1
 clrmt
@@ -26268,20 +26058,15 @@ cgi001
 cgh
 cgch
 cg91
-cfsnippets.mdb
 cfsg
 cfsd
 cfsannet1
 cfsannet
 cfs
-cfmlsyntaxcheck.cfm
 cfi
-cfgwiz.exe
 cfgnet
-cfexamples.mdb
 cfen
 cfdguru
-cfcache.map
 cfc
 cfar
 cfanywhere
@@ -26448,7 +26233,6 @@ cccnet
 cccneb
 cccd
 ccbxt1
-ccbill.log
 ccards
 ccard
 ccadfa
@@ -26479,7 +26263,6 @@ catman
 catlin
 cathy
 catawba
-catalog.nsf
 cata
 cat3
 cat2
@@ -26509,7 +26292,6 @@ cary
 cartoon
 carto
 carter
-cart.cgi
 carrot
 carrollnet
 carpaccio
@@ -26530,7 +26312,6 @@ cardio
 cardiff
 cardenal
 carcoar
-carbo.dll
 carbidenet
 carambola
 capsicum
@@ -26788,7 +26569,6 @@ bruker
 brugge
 bruce
 browsers
-browser.inc
 brouwer
 brothers
 broremann
@@ -27237,7 +27017,6 @@ bighouse
 bighips
 bigdude
 bigdeal
-bigconf.cgi
 bigcock
 bigbucks
 bigbrother
@@ -27319,7 +27098,6 @@ beattie1
 beatle
 beatit
 beasley
-beaninfo.cfm
 beammeup
 beadle
 beacon
@@ -27564,11 +27342,7 @@ auvm
 autoresize
 autopsy
 autogen
-autoexec.bat
 auto
-authors.pwd
-author.exe
-author.dll
 austin1
 austek
 aust
@@ -27938,7 +27712,6 @@ anarchy
 ananke
 analytikerna
 analysis
-analyse.cgi
 analatom
 anaheim
 anaconda
@@ -28190,7 +27963,6 @@ agr
 agps
 agpgis
 agouron
-agora.cgi
 agismio
 aggregate
 aggie
@@ -28244,7 +28016,6 @@ af4
 af3
 af2
 af1
-aexp2b.htr
 aes
 aerosol
 aeronet
@@ -28267,7 +28038,6 @@ aeb
 adx
 advworks
 advsystech
-advsearch.asp
 advlist
 advintech
 adventur
@@ -28284,13 +28054,10 @@ adpnet
 adour
 admpw
 admon
-administrators.pwd
 administ
 admin_
 admin1
-admin.pl
 admin.php3
-admin.cgi
 admin.back
 adm_b_db
 adlt5
@@ -28325,10 +28092,8 @@ adel2
 adel
 adebna
 address
-addcontent.cfm
 addClass
 add
-adctest.asp
 adc
 adawc
 adaptive
@@ -28401,7 +28166,6 @@ accesss
 accessories
 access_logs
 access_log
-access.cnf
 acceso
 accelr8
 acceleration
@@ -28485,8 +28249,6 @@ aachen
 aaai
 a141
 a05
-a.jsp
-a.asp
 _vti_shm
 _vti_bot
 _tests
@@ -28502,7 +28264,6 @@ _ncl_items.shtml
 _errors
 _backup
 _ScriptLibrary
-\\global.asa
 ZendServer
 Yahoo
 YE
@@ -28524,8 +28285,6 @@ WebCalendar
 WebBank
 Wallpapers
 Wakacje
-WS_FTP.ini
-WSFTP.LOG
 WNT40
 WNT35
 WMP
@@ -28708,7 +28467,6 @@ MultipleReceived_08
 MultipleAuthRes_10
 Msword
 Mslanman.os2
-Mslanman.dos
 Movies
 Mouse
 Module
@@ -28739,7 +28497,6 @@ MSGQUEUE
 MRTG
 MPlayer
 MPS
-MOLE.CFM
 MODEMSHR
 MODEMS
 MODEM
@@ -28759,7 +28516,6 @@ License
 Lib
 Lexmark_Z515
 Lan
-LICENSE.LIC
 LIB
 LDAP
 LCGI
@@ -28803,14 +28559,11 @@ German.lproj
 GalleryPlatform
 GXApp
 GW5
-FtpSave.dll
 French.lproj
 Freebsd
 Framework
 Fr
-Fpadmcgi.exe
 Forum
-Form_JScript.asp
 Flow
 Flickr
 FileParserDataSource
@@ -28831,7 +28584,6 @@ FILE12
 FILE11
 FILE10
 FILE1
-ExprCalc.cfm
 Excel5
 ExAir
 Env.java
@@ -29093,7 +28845,6 @@ ACL
 4.1
 4.0
 3xt1
-3tvars.pm
 3sm
 3p
 3m
@@ -29218,18 +28969,14 @@ ACL
 .wwwacl
 .www_acl
 .users
-.txt
 .passwords
 .passes
 .pass
-.nsf
 .nsconfig
 .mysql_history
 .members
-.jsp
 .jpilot
 .htpasswds
-.fhp
 .admin
 .access
 ._LICENSE
@@ -29279,7 +29026,6 @@ yoo_phoenix
 yoo_mellow
 yoo_effects
 yogiiza
-yoga.OLD
 yoga
 ykcee
 yiv
@@ -29333,35 +29079,6 @@ xajax_js
 x2t
 x264
 x12arima
-wxis1660.exe
-www_questionvoyage
-www_lebonprix_v1
-www.weemsfamily.net/
-www.uac.bj/
-www.tux.org/
-www.tonjac.org/
-www.talisman.org/
-www.success2all.com/
-www.skmh.org.np/
-www.medcell.cl/
-www.mbbac.org/
-www.lam.jussieu.fr/
-www.kite4sail.com/
-www.joingod.com/
-www.iccnet.cm/
-www.ibiblio.org/
-www.heavenly.fr/
-www.gexlighting.com/
-www.gecem.com/
-www.falty.com/
-www.ekizzlers.in/
-www.egotop.com/
-www.drwelectric.com/
-www.chat2me247.com/
-www.artmosh.com/
-www.airsure.co.nz/
-www.addthis.com
-www.ThisOldTruck.com
 wsilver
 ws_ftp
 writer
@@ -29390,7 +29107,6 @@ wisenav
 wireless
 wins_hook
 wins
-winmdm.org
 winff_files
 win_ce
 win9x_me
@@ -29413,8 +29129,6 @@ wemakeprice
 wellsilver
 weekscss
 week
-webtribulation.com
-webmail.kapix.fr/
 webeng
 webcal
 web_gui_aux
@@ -29443,7 +29157,6 @@ vuxml
 vtodo
 voz
 voteimgs
-volatile.debian.net
 vnstat_int
 vnstat
 vnc
@@ -29584,7 +29297,6 @@ tvilium
 tvK
 tutorial
 tutor
-turistaonline.net
 turba
 tty
 tttt
@@ -29662,7 +29374,6 @@ tigracp
 tigra_calendar
 tigra
 tight
-tig.git
 tig
 tifmerge
 ticket_times
@@ -29671,7 +29382,6 @@ thttpd
 threadcaches
 thot
 thorgrym
-thesis.git
 theservantsofgod2
 theservantsofgod
 thesaurus
@@ -29701,7 +29411,6 @@ termcap
 templatka11
 templateEditor
 telephony
-teguhsantosa.com
 ted
 techinfo
 teamspeak
@@ -29727,7 +29436,6 @@ talks
 talkradio
 taigergroup
 taiger_index
-tablatune.com/
 tablatune
 tab_7
 tab_10.1
@@ -29804,7 +29512,6 @@ standardgreen
 standardblue
 standard_002
 stairs
-staceybenben.com/
 sssdossier
 ssdossier
 sscrc
@@ -29998,8 +29705,6 @@ savant
 satchmo
 sars2
 sars1
-santafesuntanning.ca
-santafesun.ca
 sandy_point
 sandbox
 sampledata
@@ -30008,7 +29713,6 @@ samdroid
 samachar
 salome
 saleitems
-sahabatkorea.com
 safeweb
 safasfas
 s900xp161usZ
@@ -30047,17 +29751,11 @@ ronan
 rolodex
 rollover
 rokcandy
-rogunix.com/
 rocket
 robosoky
 roanexpo
 roadracers
 ro_utf8
-rmtv.com
-rmiklan.com
-rmfootball.com
-rmexpose.com
-rmblitz.com
 rivz
 ringtones
 rhuk_solarflare_ii
@@ -30074,7 +29772,6 @@ return
 resources2
 resources1
 resized
-reschedule.git
 rerolled
 rererette
 reptileye
@@ -30094,7 +29791,6 @@ remedy
 religion
 relational
 reklamy
-registry.d
 reg_files
 refere~1
 reference
@@ -30266,7 +29962,6 @@ plugins~orig
 plugin_sige
 pls4
 plotting
-plf.zarb.org
 plf
 playbook
 platforms
@@ -30386,14 +30081,10 @@ outcome
 outbrain
 otherusersmanager
 osmonitor
-oscarvalho.com/
 orx_lovecore_2007
 oriandabiz
-orianda.biz/
 organizationimgs
 ordering
-orangmerdeka_ok1.com
-orangmerdeka.com
 orangewhitepda
 orangewhite
 oracle7
@@ -30427,8 +30118,7 @@ om
 olej
 oldweb
 oldstable
-oldsite\\images
-oldsite\\css
+oldsite
 old_stuff
 old_site
 old_databases
@@ -30437,7 +30127,6 @@ ojs2
 oiled
 oics
 ogilvy
-office.avhan.co.in/
 off
 oceanblue
 observers
@@ -30447,7 +30136,6 @@ obfuscatejs
 oAuth
 nzb
 nx_older
-nvidia.com
 nvdesigncomau
 nvdesign
 nvanderkolk
@@ -30479,7 +30167,6 @@ norman_west
 norman_estates
 nonzero
 nonutil
-nonus.debian.org
 nolonglines
 nodefamily
 nodeaccess
@@ -30494,10 +30181,6 @@ nls
 nletter
 nld_065_1.5
 nl_utf8
-nl2k.ab.ca/
-nivakysubdomains
-nivaky.com/
-nivaky.com
 nimg
 nihongo
 night
@@ -30553,9 +30236,7 @@ ndis2
 ncurses
 nbtdemo
 nbproject
-nbjgit.git
 nbjgit
-nbgit.git
 nbgit
 nawk
 navteq
@@ -30566,10 +30247,8 @@ naver
 navIcons
 natwest
 nate
-nass77.free.fr/
 nasawash
 nano
-nainwak.com/
 nag
 naev
 n2b64
@@ -30583,7 +30262,6 @@ myspace
 myrestore
 myitem
 myfiles
-myemail.com/
 myemail
 mydnsptrconvert
 mydnsimport
@@ -30614,7 +30292,6 @@ mults
 multiroot
 multibox
 mui
-mtv.com
 mssqlpo
 mssql
 msnexplr
@@ -30624,7 +30301,6 @@ ms_utf8
 mrss
 mrkt_presentations
 mrdl
-mplayerhq.hu
 mplayer2
 mplayer
 mpich
@@ -30729,8 +30405,6 @@ micahphinson
 mi_wwow_utf8
 mi_tn_utf8
 mi3_files
-mi.old
-mgsm800.au.com/
 metauml
 metall
 metal
@@ -30742,7 +30416,6 @@ menuadmin
 men
 memo
 meme_3.5.4.patches
-meme.nbcr.net/
 membres
 memberuserimgs
 membership
@@ -30760,10 +30433,8 @@ mbios
 mbd_files
 maz
 maxdb
-matthewolfer.com/
 matrox
 matos
-matmanagement.net/
 mathlib
 material
 masturbationinblue
@@ -30806,7 +30477,6 @@ magicJack
 magazine
 maelstrom
 mael
-madamepont.com/
 machines
 macbookair
 macbook_pro2
@@ -30818,7 +30488,6 @@ m51
 m4
 m2000
 m136
-m.txt
 lytebox
 lv_utf8
 luxrender
@@ -30878,7 +30547,6 @@ linkimages
 lineak
 lincks
 lildbi.old.13082010
-lildbi.old
 likebox_data
 lika
 lightshow
@@ -30891,8 +30559,6 @@ librusec
 libmsrpc
 libmailer
 libjs
-libgtp.git
-lib.rus.ec
 lh_mailer
 lfs
 letters
@@ -30910,7 +30576,6 @@ left_menu
 ledstartseite
 lecture3
 lecture
-lebonprix.com/
 leatherbound
 learn3
 lbit
@@ -30944,7 +30609,6 @@ kterm
 kryket
 kronolith
 kris
-kr59.ru/
 kqemu
 kourosivo
 kotakomp
@@ -30983,27 +30647,21 @@ kewlgrey
 kewlblueredux
 kewlblue
 kernels
-kenstars.com/
-kccricket.net/
 kbtest
 kawow
 katchtv
 kaskade
 kashmir
-karitoo.free.fr/
 karisma
 kanji26
 kanji18
-kambing.ui.ac.id/
 kadu
-kadoee.co.uk/
 ka_utf8
 jxtended
 jw_allvideos
 jv
 jurnal
 jupload
-julien.b5.free.fr/
 jstree
 jsonwrapper
 json
@@ -31019,14 +30677,12 @@ joominablue
 joomfish
 joomfat
 joolma
-jonas.nitro.dk/
 jonas
 join
 joi
 joequake
 joefrank
 jocachi
-jobry.com/
 jk213
 jewgeni
 jewelry
@@ -31036,14 +30692,12 @@ jce
 jatypo
 japanese
 jamie
-jakartabagus.com
 jakarta
 jags
 ja_JP.eucJP
 iworld
 ittest
 itouch
-itinfogroup.in/
 itimages
 itemlist
 itemadd
@@ -31070,7 +30724,6 @@ iphone4g
 ipad1
 iomegados
 investment
-investdomains.com/
 inusign_corporate
 intuition
 introduction
@@ -31093,14 +30746,11 @@ inoculan
 ingo
 infusions
 inform
-info.indiatimes.com/
 infinite
 inetsrv
 indvbdesh
 industrial
 indonesian
-indonesia2050.com/
-indonesia2014.com
 indimgs
 indexing
 index_menu_new
@@ -31130,7 +30780,6 @@ img_originals
 img_antispam
 img2
 img1
-imcworld.net/
 imageslogo
 images_org
 images_exhibits
@@ -31140,17 +30789,13 @@ images_collections
 imagesSite
 images2
 images1_1
-images.old
-images.bak
 imagerotator
 imagens
 imagefield
 imagefade
 imageGalleries
-image.yeoin.com/
 illustration
 ilikeclick
-ilassalvy.free.fr/
 ikonmain
 ikonb
 ikon
@@ -31158,7 +30803,6 @@ iklanfree
 if
 ie6
 ie2
-idranaz.com/
 ide
 id_utf8
 ict
@@ -31200,7 +30844,6 @@ hr_utf8
 hpid
 hpi
 hpcl
-hp960c.org
 hp960c
 hp840c
 hp600c
@@ -31211,7 +30854,6 @@ hong
 homme
 homewifi
 homepage
-home.crhan.com/
 holloway
 hlatex
 hla
@@ -31241,11 +30883,9 @@ hawknl
 happyday
 happy20
 hansenint
-hansen.bvs.ilsl.br/
 hanseatic
 handbrake
 handbook
-halkinsesitv.info/
 half_event
 haitihut
 hadmin
@@ -31268,7 +30908,6 @@ greybox
 greenery
 grantcampbell
 grandadMAC
-gramotoring.com/
 gramophone
 gotowe
 gotoblas
@@ -31279,7 +30918,6 @@ googlesearch
 googlemaps
 googlecheckout
 googchart
-goodbyepaper.fr/
 goodbyepaper
 gongju
 golf4
@@ -31307,10 +30945,7 @@ gladius
 gl_utf8
 gk_memovie
 gk_classes
-gja.com.au/
-gittorrent.git
 gittorrent
-git.git
 giota
 gimp
 giftrans
@@ -31318,7 +30953,6 @@ gift_certificates
 giflib
 giacxcas
 ghostscript
-ghis.bt.free.fr/
 ghgh
 ggz
 ggs
@@ -31331,7 +30965,6 @@ genlogon
 generos
 generic_modules
 gen0
-geexbox.org
 gbhghg
 gb2k
 gauche
@@ -31359,41 +30992,21 @@ fueleconomysolutions
 ftpuser
 ftpsync
 ftpstats
-ftpbux.com/
 ftparchive
 ftp_upload
 ftp_servers
-ftp.xubuntu.com
-ftp.ubuntu.com
-ftp.pingoo.org
-ftp.opensuse.org
-ftp.openoffice.org
-ftp.netbsd.org
-ftp.mandriva.com
-ftp.knoppix.org
-ftp.kernel.org
-ftp.jaist.ac.jp/
-ftp.gentoo.org
-ftp.fsn.hu
-ftp.freebsd.org
-ftp.free.fr/
-ftp.debian.org
-ftp.centos.org
-ftp.archlinux.org
 ftjava
 fte
 fsfilter
 frontendEditing
 frontend
 from_spammer
-friendsofsahara.com
 frida
 fretsonfire
 freqs
 freeswitch
 freeplayer
 freepascal
-freeones.com_1
 freenews
 freebsd7.0
 freebsd6.0
@@ -31403,7 +31016,6 @@ free_deli
 francais
 fractorama
 fr_ca_utf8
-fphotos.50webs.com/
 fpdf153
 fourum
 fotos_mzk
@@ -31413,7 +31025,6 @@ foto_terminal
 foswiki
 forumrunner
 forumdata
-forum.elpresa.com/
 forsale
 foro
 formulaire
@@ -31444,7 +31055,6 @@ fluxbox
 flowgreen
 floatrix
 flimg
-flickr.com
 flicking
 fled
 flattr
@@ -31472,7 +31082,6 @@ flash_1
 flash2
 flap
 fixperms
-fitpolice.ca
 firephp
 findusers
 findphp
@@ -31520,7 +31129,6 @@ fedora_4
 fedora_3
 fedora_2
 fedora_1
-fedora.redhat.com
 fedora
 fearz
 feap
@@ -31547,7 +31155,6 @@ family_tree2
 family_tree
 family_pic
 fakesymlink
-fakeb00k.netau.net/
 fairymax
 faces2004
 facebook
@@ -31562,7 +31169,6 @@ f6
 f0
 ezpdf
 ezcart
-eyezbd.com/
 extrafieldsgroups
 extrafieldsgroup
 extrafields
@@ -31594,7 +31200,6 @@ eventlog
 event_views
 event_cpn
 evennews
-evarexx.com/
 eu_utf8
 etoolbox
 etland
@@ -31619,7 +31224,6 @@ es_4.1_64
 es_4.0
 es_3.0
 ert
-ermoney.net78.net/
 erlang
 eriklevander
 epub
@@ -31640,7 +31244,6 @@ enlighten
 engiworks
 engitronics
 engine
-engiedu.com/
 engadinecrusaders
 en_us_utf8
 employers
@@ -31654,18 +31257,14 @@ elpc3
 elp
 elounda_resort
 elixir
-elite6.tol.it/
-elinks.or.cz
 elinks
 elegis
 electronic
 elearn
-elarossin.com/
 elalmas
 el_utf8
 eispack
 egov
-egoscriptor.com/
 effervescence_plus
 edyvalue
 edwin
@@ -31754,7 +31353,6 @@ dloops
 dllcache
 dlink_wifi
 dlink530tx.oldest
-dlink530tx.old
 dlink524
 dlink1005d
 dk.anima.mail2csv
@@ -31780,7 +31378,6 @@ diet_img
 dict_word
 diary
 dialout
-diabetesinyoung.com/
 dhtmlxtree
 dhtmlext
 dhpriv
@@ -31791,7 +31388,6 @@ dforum
 dflt
 dff
 devupgrd
-devserver6.info/
 deviantart
 develop
 detour
@@ -31810,7 +31406,6 @@ demosurveys
 demos2
 demo_module
 demo11
-demo.openmrkt.com/
 demands
 deltas
 dell_dim_2100_files
@@ -31856,10 +31451,8 @@ date
 datatables
 datasetdependent
 dataplot
-database.sql
 data_390x
 data2
-data.sql
 darkrpg
 darkgray
 darker
@@ -31894,7 +31487,6 @@ customValidators
 cust_ui_locale
 cur
 cups
-cuisinedemaman.fr/
 ctf
 csvparse
 csvimport
@@ -31912,7 +31504,6 @@ cs_utf8
 cs_center
 cs02im1
 cs01ka
-cs.boisestate.edu/
 crystalsvg
 crystalspace
 crossword
@@ -31940,7 +31531,6 @@ cotranet2
 cotranet
 cotopaxi
 cosmo
-corinser.com/
 core_modules
 copyright
 copymailk
@@ -32018,14 +31608,11 @@ clients
 clientpart
 classic_noir
 cketernity_m
-cjis.old
 cjis
 cite_text
 cisco_conf
 circular_files
 circuits
-ciffop.fr/
-ci.old
 chunks
 cht
 chronicles
@@ -32040,7 +31627,6 @@ chipmunk
 chineset
 chineses
 chinese
-chinamode.net/
 china
 chelsea
 cheeseworks
@@ -32066,7 +31652,6 @@ chapter04
 chapter03
 chapter02
 chapter01
-chapman.org.za/
 chants
 channelv
 chameleon
@@ -32087,7 +31672,6 @@ ce490wc
 cdrom2
 cdm_files
 cdll
-cdimage.debian.org
 cclogos
 ccdoc
 caurina
@@ -32109,8 +31693,6 @@ can3
 can2
 camparicalendar2007
 camera
-calonjodohku.com
-calonjodoh.com
 calendars
 calendario
 calendar_data
@@ -32158,7 +31740,6 @@ brand_story
 brainy
 brainsonic
 brainportal
-brain.com.pk/
 brach3_files
 bplg
 boxxie
@@ -32187,7 +31768,6 @@ bluemoon
 bluebox08
 bluebottle
 blueberry
-blondeau.us/
 blogshoot
 blogo
 blocksadmin
@@ -32210,7 +31790,6 @@ bitmaps
 bitcoin
 birla
 bios
-bioconference.org/
 binds
 binarius
 billcallahan
@@ -32241,7 +31820,6 @@ bdcpnts_files
 bdb
 bbacev3_5
 bbace
-bays.ru/
 battery_files
 basket_img
 basiclist
@@ -32261,16 +31839,13 @@ banddog
 ballajura
 bakanekonei
 backup_6189c5
-backup.sql
 backtrace
 backends
 baby_clinic
 baaChart
 azur
-azspace.net/
 ayodhya
 ax25
-awalads.awalnet.com/
 avoter
 available
 autoviewer
@@ -32279,7 +31854,6 @@ autogas
 autofs
 autocomplete
 autoblogged
-autobiographes.com/
 authuser
 authorize
 authenticate
@@ -32298,7 +31872,6 @@ atrac2.1
 atrac2.0
 atrac1.0
 atmail
-atis.net/
 atis
 atidesk
 astrolog
@@ -32384,7 +31957,6 @@ angel
 androidsnack
 andro
 andrewwiersma
-andrewlillard.com/
 analytics
 analyst
 amqp
@@ -32394,10 +31966,8 @@ ambani
 amazontools
 amateur
 amanetworksolution
-amanetwork.net
 alup
 altCheckout
-allkindstuff.com/
 alliance
 allah
 aljazeera
@@ -32418,14 +31988,10 @@ ajaxian
 ajax_ratings
 air_map
 aicontactsafe
-aias.cs.ucy.ac.cy/
-ahz.ir/
 agp33
 agp
-agoralp.scolalp.org/
 agents
 agent_ui_locale
-against_lernvid.com
 afterstep
 afpgraphic
 afbinit
@@ -32436,7 +32002,6 @@ advisories
 advertpics
 advertising
 advertise
-adtelly.tv/
 adslasercliniccom
 adsbanner
 ads_data_003
@@ -32447,10 +32012,8 @@ adria
 adpage_data_003
 adpage_data_002
 adpage_data
-adoptabear.co.uk/
 adodb_lite
 adodbSQL_drivers
-adobe.com
 admins
 adminpanel
 administrator_old
@@ -32458,7 +32021,6 @@ administrator1
 administratif
 admina
 admin_ui_locale
-admin.webrpp.com/
 aditya
 adigard
 addphp
@@ -32479,7 +32041,6 @@ acim
 acidfree_slideshow
 acidfree
 acheck01
-acgo.netau.net/
 acervo_treinamento
 acervo_biblioteca
 accueil
@@ -32492,7 +32053,6 @@ aboutus
 abook_take
 abonnements
 abills
-aapec.free.fr/
 aaa_mail
 a_002
 a2billing
@@ -32515,7 +32075,6 @@ _cache
 _autoindex
 _ajaxratings
 __filesource
-\\
 Zuzanna_extra2
 Zuzana_extra
 Zuzana_Drabinova
@@ -32567,7 +32126,6 @@ WorkingGroupFiles
 Wodrun
 Wnetrza
 Winxp
-Winmdm.new
 Windowseol
 Windows_v2.8.5
 Windows_v2.8.4
@@ -32724,7 +32282,6 @@ UploadFiles_1620
 UploadFiles
 UploadAdPic
 Updates
-Unixware7.x
 Unixeol
 Uninst
 UnderstandingAsm
@@ -32749,7 +32306,6 @@ Tutorial
 Truck
 Trivium
 Trill
-Treasure.old
 Treasure
 Traum_Library
 Traum
@@ -32816,7 +32372,6 @@ TP3
 TMT
 TMCPRO
 TLNK3
-TLC7.ru
 TKXP32
 TKXP16
 TIME
@@ -32852,7 +32407,6 @@ Storyboard
 Store
 Stomp
 Steb
-Stealth.old
 StateData
 Stata
 StartupMonitor_files
@@ -32887,7 +32441,6 @@ Site_images
 Sistray
 Sinner
 Singles
-SinFulComics.com
 SimpleAntiSpam
 Simple
 Silver_Xire
@@ -33164,7 +32717,6 @@ PkgPortal
 PkgKiosk
 PkgCommerce
 Picture
-PicMun.ru
 PhotoshopCS3
 Photos_files
 Photo_ateliers
@@ -33185,7 +32737,6 @@ Parsed
 Parameter
 ParallelKnoppix
 Pampers
-PalmSoftware.pkg
 Palm
 Pajero
 PackageFile
@@ -33354,8 +32905,6 @@ NETWARE
 NETFLX3
 NETBEUI
 NEC
-NE2K.PCM
-NE2K.ISA
 NE100
 NCRTOK
 NC
@@ -33440,7 +32989,6 @@ MSOFFICE
 MSMAPI
 MSINFO
 MSG_BODY
-MSFT.NET
 MSENV
 MSENEWIT
 MSDAIPP
@@ -33482,7 +33030,6 @@ LogFiles
 Lock
 Locations
 Local
-LocId.app
 LocId
 Lo
 Liteon832S
@@ -33535,7 +33082,6 @@ LINUX
 LINGUAS
 LINES
 LIBRARY
-LEXMARK.NT
 LEX61
 LEVEL
 LEOCO
@@ -33576,7 +33122,6 @@ KDE
 KATZ_DAYSE
 KACT2
 Juturna
-JusticeHentai.com
 JustOneLight
 Jumpers_files
 JulianBirth
@@ -33919,7 +33464,6 @@ Drietz
 Drawing
 Dragonlance
 Doxyfile
-DoubleTake.app
 Dosyalar
 Dope
 Dolasir
@@ -34001,7 +33545,6 @@ DW
 DTD
 DTCLog
 DSS
-DRVLIB.NIC
 DPhotographer2004
 DOM
 DMASETUP
@@ -34441,7 +33984,6 @@ ABBA
 550x300
 5304463777
 500x250
-5.x
 5.7
 5.6
 5.5.15
@@ -34501,8 +34043,6 @@ ABBA
 328
 315
 31471
-3113.com/
-31.capeb.fr/
 306400
 300408764_data
 2pac
@@ -34542,10 +34082,8 @@ ABBA
 223
 222
 2208
-216.144.196.28/
 21163
 2052
-202.151.5.55/
 2012
 2011_06_10__17_10_54
 2011_05_12__16_00_00
@@ -34991,8 +34529,6 @@ ABBA
 2.2.1
 2.0
 1x1
-1poundadv.com
-1centmovie.com/
 1bit
 1_talk
 1_mail_template
@@ -35032,7 +34568,6 @@ ABBA
 153
 150x50
 1478
-147.100.108.243/
 14572
 136
 13355
@@ -35054,7 +34589,6 @@ ABBA
 120403
 120104
 120103
-120.126.145.64/
 11st
 11am
 119630
@@ -36030,7 +35564,5 @@ ABBA
 .rhost
 .profile
 .maintenance
-.kde
-.ftp
 .canna
 .backup
