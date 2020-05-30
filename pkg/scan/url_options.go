@@ -22,6 +22,7 @@ type URLOptions struct {
 	Filename            string
 	SkipSSLVerification bool
 	BackupExtensions    []string
+	ExtraHeader         string
 }
 
 type URLResult struct {

@@ -18,6 +18,7 @@ import (
 
 var statusCodes []string
 var filename string
+var header string
 var extensions = scan.DefaultURLOptions.Extensions
 
 var urlCmd = &cobra.Command{
@@ -70,6 +71,7 @@ var urlCmd = &cobra.Command{
 			Extensions:          extensions,
 			Filename:            filename,
 			SkipSSLVerification: skipSSLVerification,
+			ExtraHeader:         header,
 		}
 		if wordlistPath != "" {
 			options.Wordlist, err = wordlist.FromFile(wordlistPath)
@@ -173,6 +175,7 @@ func init() {
 	urlCmd.Flags().StringVarP(&filename, "filename", "f", filename, "Filename to seek in the directory being searched. Useful when all directories report 404 status.")
 	urlCmd.Flags().StringSliceVarP(&statusCodes, "status-codes", "s", statusCodes, "HTTP status codes which indicate a positive find.")
 	urlCmd.Flags().StringSliceVarP(&extensions, "extensions", "x", extensions, "File extensions to detect.")
+	urlCmd.Flags().StringVarP(&header, "header", "H", header, "Extra header to send with requests.")
 
 	rootCmd.AddCommand(urlCmd)
 }

@@ -175,7 +175,20 @@ func (scanner *URLScanner) checkURL(uri string) *URLResult {
 	var code int
 	var location string
 	if err := retry.Do(func() error {
-		resp, err := scanner.client.Get(uri)
+
+		req, err := http.NewRequest(http.MethodGet, uri, nil)
+		if err != nil {
+			return err
+		}
+
+		if scanner.options.ExtraHeader != "" {
+			parts := strings.SplitN(scanner.options.ExtraHeader, ":", 2)
+			if len(parts) == 2 {
+				req.Header.Set(parts[0], strings.TrimPrefix(parts[1], " "))
+			}
+		}
+
+		resp, err := scanner.client.Do(req)
 		if err != nil {
 			return nil
 		}
