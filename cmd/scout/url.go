@@ -90,12 +90,14 @@ var urlCmd = &cobra.Command{
 <blue>[</blue><yellow>+</yellow><blue>] Routines</blue><yellow>        %d 
 <blue>[</blue><yellow>+</yellow><blue>] Extensions</blue><yellow>      %s 
 <blue>[</blue><yellow>+</yellow><blue>] Positive Codes</blue><yellow>  %s
+<blue>[</blue><yellow>+</yellow><blue>] Spider</blue><yellow>          %t
 
 `,
 			parsedURL.String(),
 			parallelism,
 			strings.Join(extensions, ","),
 			strings.Join(statusCodes, ","),
+			enableSpidering,
 		)
 
 		scanner := scan.NewURLScanner(options...)
