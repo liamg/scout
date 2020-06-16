@@ -34,10 +34,10 @@ var DefaultVHOSTOptions = VHOSTOptions{
 
 func (opt *VHOSTOptions) Inherit() {
 	if opt.Timeout == 0 {
-		opt.Timeout = DefaultURLOptions.Timeout
+		opt.Timeout = DefaultVHOSTOptions.Timeout
 	}
 	if opt.Parallelism == 0 {
-		opt.Parallelism = DefaultURLOptions.Parallelism
+		opt.Parallelism = DefaultVHOSTOptions.Parallelism
 	}
 	if opt.Wordlist == nil {
 		wordlistBytes, err := data.Asset("assets/vhost.txt")

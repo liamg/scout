@@ -1,3 +1,16 @@
+.git
+.github
+.travis.yml
+vendor
+.gitignore
+Dockerfile
+.viminfo
+.rhosts
+.rhost
+.profile
+.maintenance
+.canna
+.backup
 images
 css
 LC_MESSAGES
@@ -35559,10 +35572,3 @@ ABBA
 0.8
 0.11
 0.10
-.viminfo
-.rhosts
-.rhost
-.profile
-.maintenance
-.canna
-.backup

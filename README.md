@@ -2,7 +2,7 @@
 
 [![Travis Build Status](https://travis-ci.org/liamg/scout.svg?branch=master)](https://travis-ci.org/liamg/scout)
 
-Scout is a URL fuzzer for discovering undisclosed VHOSTS, files and directories on a web server. 
+Scout is a URL fuzzer and spider for discovering undisclosed VHOSTS, files and directories on a web server. 
 
 <p align="center">
   <img width="929" height="502" src="./demo.gif" />
@@ -14,13 +14,13 @@ A full word list is included in the binary, meaning maximum portability and mini
 
 ```bash
 
-
 Usage:
   scout [command]
 
 Available Commands:
   help        Help about any command
   url         Discover URLs on a given web server.
+  version     Display scout version.
   vhost       Discover VHOSTs on a given web server.
 
 Flags:
@@ -31,10 +31,7 @@ Flags:
   -k, --skip-ssl-verify   Skip SSL certificate verification.
   -w, --wordlist string   Path to wordlist file. If this is not specified an internal wordlist will be used.
 
-Use "scout [command] --help" for more information about a command.
-
 ```
-
 
 ### Discover URLs
 
@@ -52,9 +49,13 @@ Filename to seek in the directory being searched. Useful when all directories re
 
 Extra header to send with requests e.g. `-H "Cookie: PHPSESSID=blah"` 
 
-##### `-s, --status-codes`
+##### `-c, --status-codes`
 
 HTTP status codes which indicate a positive find. (default `200,400,403,500,405,204,401,301,302`)
+
+##### `-s, --spider`
+
+Scan page content for links and confirm their existence.
 
 #### Full example
 

@@ -19,7 +19,8 @@ import (
 var statusCodes []string
 var filename string
 var header string
-var extensions = scan.DefaultURLOptions.Extensions
+var extensions = []string{"php", "htm", "html", "txt"}
+var enableSpidering bool
 
 var urlCmd = &cobra.Command{
 	Use:   "url [url]",
@@ -62,41 +63,42 @@ var urlCmd = &cobra.Command{
 			intStatusCodes = append(intStatusCodes, i)
 		}
 
-		options := &scan.URLOptions{
-			PositiveStatusCodes: intStatusCodes,
-			TargetURL:           *parsedURL,
-			ResultChan:          resultChan,
-			BusyChan:            busyChan,
-			Parallelism:         parallelism,
-			Extensions:          extensions,
-			Filename:            filename,
-			SkipSSLVerification: skipSSLVerification,
-			ExtraHeader:         header,
+		options := []scan.URLOption{
+			scan.WithPositiveStatusCodes(intStatusCodes),
+			scan.WithTargetURL(*parsedURL),
+			scan.WithResultChan(resultChan),
+			scan.WithBusyChan(busyChan),
+			scan.WithParallelism(parallelism),
+			scan.WithExtensions(extensions),
+			scan.WithFilename(filename),
+			scan.WithSkipSSLVerification(skipSSLVerification),
+			scan.WithExtraHeader(header),
+			scan.WithSpidering(enableSpidering),
 		}
+
 		if wordlistPath != "" {
-			options.Wordlist, err = wordlist.FromFile(wordlistPath)
+			words, err := wordlist.FromFile(wordlistPath)
 			if err != nil {
 				tml.Printf("<bold><red>Error:</red></bold> %s\n", err)
 				os.Exit(1)
 			}
+			options = append(options, scan.WithWordlist(words))
 		}
-		options.Inherit()
 
 		tml.Printf(
-			`
-<blue>[</blue><yellow>+</yellow><blue>] Target URL</blue><yellow>      %s
+			`<blue>[</blue><yellow>+</yellow><blue>] Target URL</blue><yellow>      %s
 <blue>[</blue><yellow>+</yellow><blue>] Routines</blue><yellow>        %d 
 <blue>[</blue><yellow>+</yellow><blue>] Extensions</blue><yellow>      %s 
 <blue>[</blue><yellow>+</yellow><blue>] Positive Codes</blue><yellow>  %s
 
 `,
-			options.TargetURL.String(),
-			options.Parallelism,
-			strings.Join(options.Extensions, ","),
+			parsedURL.String(),
+			parallelism,
+			strings.Join(extensions, ","),
 			strings.Join(statusCodes, ","),
 		)
 
-		scanner := scan.NewURLScanner(options)
+		scanner := scan.NewURLScanner(options...)
 
 		waitChan := make(chan struct{})
 
@@ -173,9 +175,10 @@ func clearLine() {
 
 func init() {
 	urlCmd.Flags().StringVarP(&filename, "filename", "f", filename, "Filename to seek in the directory being searched. Useful when all directories report 404 status.")
-	urlCmd.Flags().StringSliceVarP(&statusCodes, "status-codes", "s", statusCodes, "HTTP status codes which indicate a positive find.")
+	urlCmd.Flags().StringSliceVarP(&statusCodes, "status-codes", "c", statusCodes, "HTTP status codes which indicate a positive find.")
 	urlCmd.Flags().StringSliceVarP(&extensions, "extensions", "x", extensions, "File extensions to detect.")
 	urlCmd.Flags().StringVarP(&header, "header", "H", header, "Extra header to send with requests.")
+	urlCmd.Flags().BoolVarP(&enableSpidering, "spider", "s", enableSpidering, "Spider links within page content")
 
 	rootCmd.AddCommand(urlCmd)
 }

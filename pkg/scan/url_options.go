@@ -1,76 +1,93 @@
 package scan
 
 import (
-	"bytes"
-	"net/http"
 	"net/url"
 	"time"
 
-	"github.com/liamg/scout/internal/app/scout/data"
 	"github.com/liamg/scout/pkg/wordlist"
 )
 
-type URLOptions struct {
-	TargetURL           url.URL        // target url
-	PositiveStatusCodes []int          // status codes that indicate the existance of a file/directory
-	Timeout             time.Duration  // http request timeout
-	Parallelism         int            // parallel routines
-	ResultChan          chan URLResult // chan to return results on - otherwise will be returned in slice
-	BusyChan            chan string    // chan to use to update current job
-	Wordlist            wordlist.Wordlist
-	Extensions          []string
-	Filename            string
-	SkipSSLVerification bool
-	BackupExtensions    []string
-	ExtraHeader         string
+type URLOption func(s *URLScanner)
+
+// WithTargetURL sets the url to initiate scans from
+func WithTargetURL(target url.URL) URLOption {
+	return func(s *URLScanner) {
+		s.targetURL = target
+	}
+} // target url
+
+// WithPositiveStatusCodes provides status codes that indicate the existence of a file/directory
+func WithPositiveStatusCodes(codes []int) URLOption {
+	return func(s *URLScanner) {
+		s.positiveStatusCodes = codes
+	}
+}
+
+func WithTimeout(timeout time.Duration) URLOption {
+	return func(s *URLScanner) {
+		s.timeout = timeout
+	}
+} // http request timeout
+
+func WithParallelism(routines int) URLOption {
+	return func(s *URLScanner) {
+		s.parallelism = routines
+	}
+} // parallel routines
+
+func WithResultChan(c chan URLResult) URLOption {
+	return func(s *URLScanner) {
+		s.resultChan = c
+	}
+} // chan to return results on - otherwise will be returned in slice
+
+func WithBusyChan(c chan string) URLOption {
+	return func(s *URLScanner) {
+		s.busyChan = c
+	}
+} // chan to use to update current job
+
+func WithWordlist(w wordlist.Wordlist) URLOption {
+	return func(s *URLScanner) {
+		s.words = w
+	}
+}
+
+// you must include the .
+func WithExtensions(extensions []string) URLOption {
+	return func(s *URLScanner) {
+		s.extensions = extensions
+	}
+}
+func WithFilename(filename string) URLOption {
+	return func(s *URLScanner) {
+		s.filename = filename
+	}
+}
+func WithSpidering(spider bool) URLOption {
+	return func(s *URLScanner) {
+		s.enableSpidering = spider
+	}
+}
+
+func WithSkipSSLVerification(skipSSL bool) URLOption {
+	return func(s *URLScanner) {
+		s.skipSSLVerification = skipSSL
+	}
+}
+func WithBackupExtensions(backupExtensions []string) URLOption {
+	return func(s *URLScanner) {
+		s.backupExtensions = backupExtensions
+	}
+}
+
+func WithExtraHeader(header string) URLOption {
+	return func(s *URLScanner) {
+		s.extraHeader = header
+	}
 }
 
 type URLResult struct {
-	URL               url.URL
-	StatusCode        int
-	ExtraWork         []string
-	SupplementaryOnly bool
-}
-
-var DefaultURLOptions = URLOptions{
-	PositiveStatusCodes: []int{
-		http.StatusOK,
-		http.StatusBadRequest,
-		http.StatusInternalServerError,
-		http.StatusMethodNotAllowed,
-		http.StatusNoContent,
-		http.StatusUnauthorized,
-		http.StatusForbidden,
-		http.StatusFound,
-		http.StatusMovedPermanently,
-	},
-	Timeout:          time.Second * 5,
-	Parallelism:      10,
-	Extensions:       []string{"php", "htm", "html", "txt"},
-	BackupExtensions: []string{"~", ".bak", ".BAK", ".old", ".backup", ".txt", ".OLD", ".BACKUP", "1", "2", "_", ".1", ".2"},
-}
-
-func (opt *URLOptions) Inherit() {
-	if len(opt.PositiveStatusCodes) == 0 {
-		opt.PositiveStatusCodes = DefaultURLOptions.PositiveStatusCodes
-	}
-	if opt.Timeout == 0 {
-		opt.Timeout = DefaultURLOptions.Timeout
-	}
-	if opt.Parallelism == 0 {
-		opt.Parallelism = DefaultURLOptions.Parallelism
-	}
-	if opt.Wordlist == nil {
-		wordlistBytes, err := data.Asset("assets/wordlist.txt")
-		if err != nil {
-			wordlistBytes = []byte{}
-		}
-		opt.Wordlist = wordlist.FromReader(bytes.NewReader(wordlistBytes))
-	}
-	if len(opt.Extensions) == 0 {
-		opt.Extensions = DefaultURLOptions.Extensions
-	}
-	if len(opt.BackupExtensions) == 0 {
-		opt.BackupExtensions = DefaultURLOptions.BackupExtensions
-	}
+	URL        url.URL
+	StatusCode int
 }

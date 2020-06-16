@@ -101,8 +101,7 @@ var vhostCmd = &cobra.Command{
 		options.Inherit()
 
 		tml.Printf(
-			`
-<blue>[</blue><yellow>+</yellow><blue>] Base Domain</blue><yellow>     %s
+			`<blue>[</blue><yellow>+</yellow><blue>] Base Domain</blue><yellow>     %s
 <blue>[</blue><yellow>+</yellow><blue>] Routines</blue><yellow>        %d 
 <blue>[</blue><yellow>+</yellow><blue>] IP</blue><yellow>              %s 
 <blue>[</blue><yellow>+</yellow><blue>] Port</blue><yellow>            %s 

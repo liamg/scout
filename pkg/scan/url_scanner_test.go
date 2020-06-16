@@ -30,11 +30,13 @@ func TestURLScanner(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	scanner := NewURLScanner(&URLOptions{
-		TargetURL:   *parsed,
-		Parallelism: 2,
-		Wordlist:    wordlist.FromReader(bytes.NewReader([]byte("login.php\nsomething.php"))),
-	})
+	options := []URLOption{
+		WithTargetURL(*parsed),
+		WithParallelism(2),
+		WithWordlist(wordlist.FromReader(bytes.NewReader([]byte("login.php\nsomething.php")))),
+	}
+
+	scanner := NewURLScanner(options...)
 
 	results, err := scanner.Scan()
 	if err != nil {
@@ -65,12 +67,14 @@ func TestURLScannerWithRedirects(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	scanner := NewURLScanner(&URLOptions{
-		TargetURL:           *parsed,
-		Parallelism:         1,
-		PositiveStatusCodes: []int{http.StatusOK},
-		Wordlist:            wordlist.FromReader(bytes.NewReader([]byte("login.php"))),
-	})
+	options := []URLOption{
+		WithTargetURL(*parsed),
+		WithParallelism(1),
+		WithWordlist(wordlist.FromReader(bytes.NewReader([]byte("login.php")))),
+		WithPositiveStatusCodes([]int{http.StatusOK}),
+	}
+
+	scanner := NewURLScanner(options...)
 
 	results, err := scanner.Scan()
 	if err != nil {
@@ -101,11 +105,13 @@ func TestURLScannerWithBackupFile(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	scanner := NewURLScanner(&URLOptions{
-		TargetURL:   *parsed,
-		Parallelism: 1,
-		Wordlist:    wordlist.FromReader(bytes.NewReader([]byte("login.php"))),
-	})
+	options := []URLOption{
+		WithTargetURL(*parsed),
+		WithParallelism(1),
+		WithWordlist(wordlist.FromReader(bytes.NewReader([]byte("login.php")))),
+	}
+
+	scanner := NewURLScanner(options...)
 
 	results, err := scanner.Scan()
 	if err != nil {
