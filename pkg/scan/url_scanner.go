@@ -23,7 +23,7 @@ import (
 
 type URLScanner struct {
 	client              *http.Client
-	jobChan             chan string
+	jobChan             chan URLJob
 	targetURL           url.URL        // target url
 	positiveStatusCodes []int          // status codes that indicate the existance of a file/directory
 	timeout             time.Duration  // http request timeout
@@ -39,9 +39,16 @@ type URLScanner struct {
 	enableSpidering     bool
 	checked             map[string]struct{}
 	checkMutex          sync.Mutex
-	queueChan           chan string
+	queueChan           chan URLJob
 	jobsLoaded          int32
 }
+
+type URLJob struct {
+	URL       string
+	BasicOnly bool // don;t bother adding .BAK etc.
+}
+
+const MaxURLs = 1000
 
 func NewURLScanner(options ...URLOption) *URLScanner {
 
@@ -63,12 +70,13 @@ func NewURLScanner(options ...URLOption) *URLScanner {
 		extensions:       []string{"php", "htm", "html", "txt"},
 		backupExtensions: []string{"~", ".bak", ".BAK", ".old", ".backup", ".txt", ".OLD", ".BACKUP", "1", "2", "_", ".1", ".2"},
 		enableSpidering:  false,
-		queueChan:        make(chan string, 0x10000),
 	}
 
 	for _, option := range options {
 		option(scanner)
 	}
+
+	scanner.queueChan = make(chan URLJob, MaxURLs*scanner.parallelism)
 
 	if scanner.words == nil {
 		wordlistBytes, err := data.Asset("assets/wordlist.txt")
@@ -97,7 +105,7 @@ func (scanner *URLScanner) Scan() ([]url.URL, error) {
 
 	atomic.StoreInt32(&(scanner.jobsLoaded), 0)
 
-	scanner.jobChan = make(chan string, scanner.parallelism)
+	scanner.jobChan = make(chan URLJob, scanner.parallelism)
 	results := make(chan URLResult, scanner.parallelism)
 
 	wg := sync.WaitGroup{}
@@ -139,6 +147,9 @@ func (scanner *URLScanner) Scan() ([]url.URL, error) {
 	if !strings.HasSuffix(prefix, "/") {
 		prefix = prefix + "/"
 	}
+
+	scanner.jobChan <- URLJob{URL: prefix}
+
 	for {
 		if word, err := scanner.words.Next(); err != nil {
 			if err != io.EOF {
@@ -151,11 +162,13 @@ func (scanner *URLScanner) Scan() ([]url.URL, error) {
 			}
 			uri := prefix + word
 			if scanner.filename != "" {
-				scanner.jobChan <- uri + "/" + scanner.filename
+				scanner.jobChan <- URLJob{URL: uri + "/" + scanner.filename, BasicOnly: true}
 			} else {
-				scanner.jobChan <- uri
-				for _, ext := range scanner.extensions {
-					scanner.jobChan <- uri + "." + ext
+				scanner.jobChan <- URLJob{URL: uri, BasicOnly: true}
+				if !strings.HasSuffix(uri, ".htaccess") && !strings.HasSuffix(uri, ".htpasswd") {
+					for _, ext := range scanner.extensions {
+						scanner.jobChan <- URLJob{URL: uri + "." + ext}
+					}
 				}
 			}
 		}
@@ -211,8 +224,8 @@ func (scanner *URLScanner) worker(results chan<- URLResult) {
 	}
 }
 
-func (scanner *URLScanner) queue(uri string) {
-	scanner.queueChan <- uri
+func (scanner *URLScanner) queue(job URLJob) {
+	scanner.queueChan <- job
 }
 
 func (scanner *URLScanner) visited(uri string) bool {
@@ -226,14 +239,14 @@ func (scanner *URLScanner) visited(uri string) bool {
 }
 
 // hit a url - is it one of certain response codes? leave connections open!
-func (scanner *URLScanner) checkURL(uri string) *URLResult {
+func (scanner *URLScanner) checkURL(job URLJob) *URLResult {
 
-	if scanner.visited(uri) {
+	if scanner.visited(job.URL) {
 		return nil
 	}
 
 	if scanner.busyChan != nil {
-		scanner.busyChan <- uri
+		scanner.busyChan <- job.URL
 	}
 
 	var code int
@@ -242,7 +255,7 @@ func (scanner *URLScanner) checkURL(uri string) *URLResult {
 
 	if err := retry.Do(func() error {
 
-		req, err := http.NewRequest(http.MethodGet, uri, nil)
+		req, err := http.NewRequest(http.MethodGet, job.URL, nil)
 		if err != nil {
 			return err
 		}
@@ -264,26 +277,27 @@ func (scanner *URLScanner) checkURL(uri string) *URLResult {
 		location = resp.Header.Get("Location")
 
 		if location != "" {
-			if !strings.Contains(location, "://") {
-				if parsed, err := url.Parse(uri); err == nil {
-					if relative, err := url.Parse(location); err == nil {
-						scanner.queue(parsed.ResolveReference(relative).String())
+			if parsed, err := url.Parse(job.URL); err == nil {
+				if relative, err := url.Parse(location); err == nil {
+					target := parsed.ResolveReference(relative)
+					if target.Host == parsed.Host {
+						scanner.queue(URLJob{URL: target.String()})
 					}
 				}
-			} else {
-				scanner.queue(location)
 			}
 		}
 
 		for _, status := range scanner.positiveStatusCodes {
 			if status == code {
-				parsedURL, err := url.Parse(uri)
+				parsedURL, err := url.Parse(job.URL)
 				if err != nil {
 					return nil
 				}
 
-				for _, ext := range scanner.backupExtensions {
-					scanner.queue(uri + ext)
+				if !job.BasicOnly && !strings.Contains(job.URL, "/.htpasswd") && !strings.Contains(job.URL, "/.htaccess") {
+					for _, ext := range scanner.backupExtensions {
+						scanner.queue(URLJob{URL: job.URL + ext, BasicOnly: true})
+					}
 				}
 
 				contentType := resp.Header.Get("Content-Type")
@@ -291,8 +305,8 @@ func (scanner *URLScanner) checkURL(uri string) *URLResult {
 				if scanner.enableSpidering && (contentType == "" || strings.Contains(contentType, "html")) {
 					body, err := ioutil.ReadAll(resp.Body)
 					if err == nil {
-						for _, link := range findLinks(uri, body) {
-							scanner.queue(link)
+						for _, link := range findLinks(job.URL, body) {
+							scanner.queue(URLJob{URL: link})
 						}
 					}
 				} else {
@@ -385,11 +399,13 @@ func findLinks(currentURL string, html []byte) []string {
 			return nil
 		}
 
-		if u.Host != "" && u.Host != base.Host {
+		target := base.ResolveReference(u)
+
+		if target.Host != base.Host {
 			continue
 		}
 
-		results = append(results, base.ResolveReference(u).String())
+		results = append(results, target.String())
 	}
 
 	return results
