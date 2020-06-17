@@ -108,7 +108,7 @@ func TestURLScannerWithBackupFile(t *testing.T) {
 	options := []URLOption{
 		WithTargetURL(*parsed),
 		WithParallelism(1),
-		WithWordlist(wordlist.FromReader(bytes.NewReader([]byte("login.php")))),
+		WithWordlist(wordlist.FromReader(bytes.NewReader([]byte("login")))),
 	}
 
 	scanner := NewURLScanner(options...)
