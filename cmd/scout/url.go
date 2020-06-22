@@ -132,7 +132,7 @@ var urlCmd = &cobra.Command{
 				select {
 				case output := <-importantOutputChan:
 					clearLine()
-					fmt.Printf(output)
+					fmt.Print(output)
 				FLUSH:
 					for {
 						select {
@@ -148,7 +148,7 @@ var urlCmd = &cobra.Command{
 					return
 				case output := <-genericOutputChan:
 					clearLine()
-					fmt.Printf(output)
+					fmt.Print(output)
 				}
 			}
 

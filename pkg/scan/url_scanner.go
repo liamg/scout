@@ -238,8 +238,17 @@ func (scanner *URLScanner) visited(uri string) bool {
 	return false
 }
 
+func (scanner *URLScanner) clean(url string) string {
+	if strings.Contains(url, "#") {
+		return strings.Split(url, "#")[0]
+	}
+	return url
+}
+
 // hit a url - is it one of certain response codes? leave connections open!
 func (scanner *URLScanner) checkURL(job URLJob) *URLResult {
+
+	job.URL = scanner.clean(job.URL)
 
 	if scanner.visited(job.URL) {
 		return nil
