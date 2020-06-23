@@ -305,7 +305,12 @@ func (scanner *URLScanner) checkURL(job URLJob) *URLResult {
 
 				if !job.BasicOnly && !strings.Contains(job.URL, "/.htpasswd") && !strings.Contains(job.URL, "/.htaccess") {
 					for _, ext := range scanner.backupExtensions {
-						scanner.queue(URLJob{URL: job.URL + ext, BasicOnly: true})
+						bUrl := job.URL + ext
+						if strings.Contains(job.URL, "?") {
+							bits := strings.SplitN(job.URL, "?", 2)
+							bUrl = strings.Join(bits, ext+"?")
+						}
+						scanner.queue(URLJob{URL: bUrl, BasicOnly: true})
 					}
 				}
 
