@@ -11,6 +11,8 @@ Dockerfile
 .maintenance
 .canna
 .backup
+oauth
+todo
 images
 css
 LC_MESSAGES
