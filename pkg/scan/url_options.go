@@ -81,9 +81,9 @@ func WithBackupExtensions(backupExtensions []string) URLOption {
 	}
 }
 
-func WithExtraHeader(header string) URLOption {
+func WithExtraHeaders(headers []string) URLOption {
 	return func(s *URLScanner) {
-		s.extraHeader = header
+		s.extraHeaders = append(s.extraHeaders, headers...)
 	}
 }
 
