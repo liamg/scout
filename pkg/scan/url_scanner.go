@@ -35,7 +35,7 @@ type URLScanner struct {
 	filename            string
 	skipSSLVerification bool
 	backupExtensions    []string
-	extraHeader         string
+	extraHeaders        []string
 	enableSpidering     bool
 	checked             map[string]struct{}
 	checkMutex          sync.Mutex
@@ -269,8 +269,8 @@ func (scanner *URLScanner) checkURL(job URLJob) *URLResult {
 			return err
 		}
 
-		if scanner.extraHeader != "" {
-			parts := strings.SplitN(scanner.extraHeader, ":", 2)
+		for _, header := range scanner.extraHeaders {
+			parts := strings.SplitN(header, ":", 2)
 			if len(parts) == 2 {
 				req.Header.Set(parts[0], strings.TrimPrefix(parts[1], " "))
 			}

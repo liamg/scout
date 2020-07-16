@@ -18,7 +18,7 @@ import (
 
 var statusCodes []string
 var filename string
-var header string
+var headers []string
 var extensions = []string{"php", "htm", "html", "txt"}
 var enableSpidering bool
 
@@ -72,7 +72,7 @@ var urlCmd = &cobra.Command{
 			scan.WithExtensions(extensions),
 			scan.WithFilename(filename),
 			scan.WithSkipSSLVerification(skipSSLVerification),
-			scan.WithExtraHeader(header),
+			scan.WithExtraHeaders(headers),
 			scan.WithSpidering(enableSpidering),
 		}
 
@@ -179,7 +179,7 @@ func init() {
 	urlCmd.Flags().StringVarP(&filename, "filename", "f", filename, "Filename to seek in the directory being searched. Useful when all directories report 404 status.")
 	urlCmd.Flags().StringSliceVarP(&statusCodes, "status-codes", "c", statusCodes, "HTTP status codes which indicate a positive find.")
 	urlCmd.Flags().StringSliceVarP(&extensions, "extensions", "x", extensions, "File extensions to detect.")
-	urlCmd.Flags().StringVarP(&header, "header", "H", header, "Extra header to send with requests.")
+	urlCmd.Flags().StringSliceVarP(&headers, "header", "H", headers, "Extra header to send with requests (can be specified multiple times).")
 	urlCmd.Flags().BoolVarP(&enableSpidering, "spider", "s", enableSpidering, "Spider links within page content")
 
 	rootCmd.AddCommand(urlCmd)
