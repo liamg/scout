@@ -191,7 +191,7 @@ func init() {
 	urlCmd.Flags().StringSliceVarP(&extensions, "extensions", "x", extensions, "File extensions to detect.")
 	urlCmd.Flags().StringSliceVarP(&headers, "header", "H", headers, "Extra header to send with requests (can be specified multiple times).")
 	urlCmd.Flags().BoolVarP(&enableSpidering, "spider", "s", enableSpidering, "Spider links within page content")
-	urlCmd.Flags().StringVarP(&proxy, "proxy", "x", proxy, "HTTP Porxy to use")
+	urlCmd.Flags().StringVarP(&proxy, "proxy", "p", proxy, "HTTP Proxy to use")
 
 	rootCmd.AddCommand(urlCmd)
 }

@@ -47,7 +47,7 @@ func init() {
 		statusCodes = append(statusCodes, strconv.Itoa(code))
 	}
 
-	rootCmd.PersistentFlags().IntVarP(&parallelism, "parallelism", "p", parallelism, "Parallel routines to use for sending requests.")
+	rootCmd.PersistentFlags().IntVarP(&parallelism, "parallelism", "r", parallelism, "Parallel routines to use for sending requests.")
 	rootCmd.PersistentFlags().BoolVarP(&noColours, "no-colours", "n", noColours, "Disable coloured output.")
 	rootCmd.PersistentFlags().StringVarP(&wordlistPath, "wordlist", "w", wordlistPath, "Path to wordlist file. If this is not specified an internal wordlist will be used.")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", debug, "Enable debug logging.")
