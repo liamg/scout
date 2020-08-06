@@ -16,6 +16,13 @@ func WithTargetURL(target url.URL) URLOption {
 	}
 } // target url
 
+// WithProxy sets the url to initiate scans from
+func WithProxy(proxy *url.URL) URLOption {
+	return func(s *URLScanner) {
+		s.proxy = proxy
+	}
+} // target url
+
 // WithPositiveStatusCodes provides status codes that indicate the existence of a file/directory
 func WithPositiveStatusCodes(codes []int) URLOption {
 	return func(s *URLScanner) {

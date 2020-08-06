@@ -41,6 +41,7 @@ type URLScanner struct {
 	checkMutex          sync.Mutex
 	queueChan           chan URLJob
 	jobsLoaded          int32
+	proxy               *url.URL
 }
 
 type URLJob struct {
@@ -91,6 +92,10 @@ func NewURLScanner(options ...URLOption) *URLScanner {
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
+	}
+
+	if scanner.proxy != nil {
+		scanner.client.Transport = &http.Transport{Proxy: http.ProxyURL(scanner.proxy)}
 	}
 
 	if scanner.skipSSLVerification {

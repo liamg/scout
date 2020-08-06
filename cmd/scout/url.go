@@ -21,6 +21,7 @@ var filename string
 var headers []string
 var extensions = []string{"php", "htm", "html", "txt"}
 var enableSpidering bool
+var proxy string
 
 var urlCmd = &cobra.Command{
 	Use:   "url [url]",
@@ -99,6 +100,15 @@ var urlCmd = &cobra.Command{
 			strings.Join(statusCodes, ","),
 			enableSpidering,
 		)
+
+		if proxy != "" {
+			proxyUrl, err := url.Parse(proxy)
+			if err != nil {
+				tml.Printf("<bold><red>Error:</red></bold> Invalid Proxy URL: %s\n", err)
+				os.Exit(1)
+			}
+			options = append(options, scan.WithProxy(proxyUrl))
+		}
 
 		scanner := scan.NewURLScanner(options...)
 
@@ -181,6 +191,7 @@ func init() {
 	urlCmd.Flags().StringSliceVarP(&extensions, "extensions", "x", extensions, "File extensions to detect.")
 	urlCmd.Flags().StringSliceVarP(&headers, "header", "H", headers, "Extra header to send with requests (can be specified multiple times).")
 	urlCmd.Flags().BoolVarP(&enableSpidering, "spider", "s", enableSpidering, "Spider links within page content")
+	urlCmd.Flags().StringVarP(&proxy, "proxy", "x", proxy, "HTTP Porxy to use")
 
 	rootCmd.AddCommand(urlCmd)
 }
