@@ -70,6 +70,7 @@ pix
 categoryblog
 docs
 thumbs
+reporting
 test
 php
 assets
