@@ -42,6 +42,7 @@ type URLScanner struct {
 	queueChan           chan URLJob
 	jobsLoaded          int32
 	proxy               *url.URL
+	method              string
 }
 
 type URLJob struct {
@@ -71,6 +72,7 @@ func NewURLScanner(options ...URLOption) *URLScanner {
 		extensions:       []string{"php", "htm", "html", "txt"},
 		backupExtensions: []string{"~", ".bak", ".BAK", ".old", ".backup", ".txt", ".OLD", ".BACKUP", "1", "2", "_", ".1", ".2"},
 		enableSpidering:  false,
+		method:           "GET",
 	}
 
 	for _, option := range options {
@@ -269,7 +271,7 @@ func (scanner *URLScanner) checkURL(job URLJob) *URLResult {
 
 	if err := retry.Do(func() error {
 
-		req, err := http.NewRequest(http.MethodGet, job.URL, nil)
+		req, err := http.NewRequest(scanner.method, job.URL, nil)
 		if err != nil {
 			return err
 		}

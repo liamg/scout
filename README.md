@@ -53,6 +53,10 @@ Extra header to send with requests e.g. `-H "Cookie: PHPSESSID=blah"`
 
 HTTP status codes which indicate a positive find. (default `200,400,403,500,405,204,401,301,302`)
 
+##### `-m, --method`
+
+HTTP method to use.
+
 ##### `-s, --spider`
 
 Scan page content for links and confirm their existence.

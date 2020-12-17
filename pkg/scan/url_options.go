@@ -2,6 +2,7 @@ package scan
 
 import (
 	"net/url"
+	"strings"
 	"time"
 
 	"github.com/liamg/scout/pkg/wordlist"
@@ -91,6 +92,12 @@ func WithBackupExtensions(backupExtensions []string) URLOption {
 func WithExtraHeaders(headers []string) URLOption {
 	return func(s *URLScanner) {
 		s.extraHeaders = append(s.extraHeaders, headers...)
+	}
+}
+
+func WithMethod(method string) URLOption {
+	return func(s *URLScanner) {
+		s.method = strings.ToUpper(method)
 	}
 }
 

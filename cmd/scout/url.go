@@ -22,6 +22,7 @@ var headers []string
 var extensions = []string{"php", "htm", "html", "txt"}
 var enableSpidering bool
 var proxy string
+var method = "GET"
 
 var urlCmd = &cobra.Command{
 	Use:   "url [url]",
@@ -65,6 +66,7 @@ var urlCmd = &cobra.Command{
 		}
 
 		options := []scan.URLOption{
+			scan.WithMethod(method),
 			scan.WithPositiveStatusCodes(intStatusCodes),
 			scan.WithTargetURL(*parsedURL),
 			scan.WithResultChan(resultChan),
@@ -192,6 +194,7 @@ func init() {
 	urlCmd.Flags().StringSliceVarP(&headers, "header", "H", headers, "Extra header to send with requests (can be specified multiple times).")
 	urlCmd.Flags().BoolVarP(&enableSpidering, "spider", "s", enableSpidering, "Spider links within page content")
 	urlCmd.Flags().StringVarP(&proxy, "proxy", "p", proxy, "HTTP Proxy to use")
+	urlCmd.Flags().StringVarP(&method, "method", "m", method, "HTTP method (default: GET)")
 
 	rootCmd.AddCommand(urlCmd)
 }
