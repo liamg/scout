@@ -190,7 +190,7 @@ func clearLine() {
 func init() {
 	urlCmd.Flags().StringVarP(&filename, "filename", "f", filename, "Filename to seek in the directory being searched. Useful when all directories report 404 status.")
 	urlCmd.Flags().StringSliceVarP(&statusCodes, "status-codes", "c", statusCodes, "HTTP status codes which indicate a positive find.")
-	urlCmd.Flags().StringSliceVarP(&hideStatusCodes, "hide-status-codes", "h", hideStatusCodes, "HTTP status codes which should be hidden.")
+	urlCmd.Flags().StringSliceVarP(&hideStatusCodes, "hide-status-codes", "z", hideStatusCodes, "HTTP status codes which should be hidden.")
 	urlCmd.Flags().StringSliceVarP(&extensions, "extensions", "x", extensions, "File extensions to detect.")
 	urlCmd.Flags().StringSliceVarP(&headers, "header", "H", headers, "Extra header to send with requests (can be specified multiple times).")
 	urlCmd.Flags().BoolVarP(&enableSpidering, "spider", "s", enableSpidering, "Spider links within page content")
