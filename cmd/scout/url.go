@@ -17,12 +17,11 @@ import (
 )
 
 var statusCodes []string
+var hideStatusCodes []string
 var filename string
 var headers []string
 var extensions = []string{"php", "htm", "html", "txt"}
 var enableSpidering bool
-var proxy string
-var method = "GET"
 
 var urlCmd = &cobra.Command{
 	Use:   "url [url]",
@@ -55,18 +54,31 @@ var urlCmd = &cobra.Command{
 		busyChan := make(chan string, 0x400)
 
 		var intStatusCodes []int
+		var filteredStatusCodes []string
 
 		for _, code := range statusCodes {
+
+			var skip bool
+			for _, ignoreCode := range hideStatusCodes {
+				if ignoreCode == code {
+					skip = true
+					break
+				}
+			}
+			if skip {
+				continue
+			}
+
 			i, err := strconv.Atoi(code)
 			if err != nil {
 				tml.Printf("<bold><red>Error:</red></bold> Invalid status code entered: %s.\n", code)
 				os.Exit(1)
 			}
+			filteredStatusCodes = append(filteredStatusCodes, code)
 			intStatusCodes = append(intStatusCodes, i)
 		}
 
 		options := []scan.URLOption{
-			scan.WithMethod(method),
 			scan.WithPositiveStatusCodes(intStatusCodes),
 			scan.WithTargetURL(*parsedURL),
 			scan.WithResultChan(resultChan),
@@ -99,18 +111,9 @@ var urlCmd = &cobra.Command{
 			parsedURL.String(),
 			parallelism,
 			strings.Join(extensions, ","),
-			strings.Join(statusCodes, ","),
+			strings.Join(filteredStatusCodes, ","),
 			enableSpidering,
 		)
-
-		if proxy != "" {
-			proxyUrl, err := url.Parse(proxy)
-			if err != nil {
-				tml.Printf("<bold><red>Error:</red></bold> Invalid Proxy URL: %s\n", err)
-				os.Exit(1)
-			}
-			options = append(options, scan.WithProxy(proxyUrl))
-		}
 
 		scanner := scan.NewURLScanner(options...)
 
@@ -190,11 +193,10 @@ func clearLine() {
 func init() {
 	urlCmd.Flags().StringVarP(&filename, "filename", "f", filename, "Filename to seek in the directory being searched. Useful when all directories report 404 status.")
 	urlCmd.Flags().StringSliceVarP(&statusCodes, "status-codes", "c", statusCodes, "HTTP status codes which indicate a positive find.")
+	urlCmd.Flags().StringSliceVarP(&hideStatusCodes, "hide-status-codes", "z", hideStatusCodes, "HTTP status codes which should be hidden.")
 	urlCmd.Flags().StringSliceVarP(&extensions, "extensions", "x", extensions, "File extensions to detect.")
 	urlCmd.Flags().StringSliceVarP(&headers, "header", "H", headers, "Extra header to send with requests (can be specified multiple times).")
 	urlCmd.Flags().BoolVarP(&enableSpidering, "spider", "s", enableSpidering, "Spider links within page content")
-	urlCmd.Flags().StringVarP(&proxy, "proxy", "p", proxy, "HTTP Proxy to use")
-	urlCmd.Flags().StringVarP(&method, "method", "m", method, "HTTP method (default: GET)")
 
 	rootCmd.AddCommand(urlCmd)
 }
