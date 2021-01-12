@@ -54,8 +54,10 @@ var urlCmd = &cobra.Command{
 		busyChan := make(chan string, 0x400)
 
 		var intStatusCodes []int
+		var filteredStatusCodes []string
 
 		for _, code := range statusCodes {
+
 			var skip bool
 			for _, ignoreCode := range hideStatusCodes {
 				if ignoreCode == code {
@@ -64,7 +66,7 @@ var urlCmd = &cobra.Command{
 				}
 			}
 			if skip {
-				break
+				continue
 			}
 
 			i, err := strconv.Atoi(code)
@@ -72,6 +74,7 @@ var urlCmd = &cobra.Command{
 				tml.Printf("<bold><red>Error:</red></bold> Invalid status code entered: %s.\n", code)
 				os.Exit(1)
 			}
+			filteredStatusCodes = append(filteredStatusCodes, code)
 			intStatusCodes = append(intStatusCodes, i)
 		}
 
@@ -108,7 +111,7 @@ var urlCmd = &cobra.Command{
 			parsedURL.String(),
 			parallelism,
 			strings.Join(extensions, ","),
-			strings.Join(statusCodes, ","),
+			strings.Join(filteredStatusCodes, ","),
 			enableSpidering,
 		)
 
