@@ -31,6 +31,13 @@ func WithPositiveStatusCodes(codes []int) URLOption {
 	}
 }
 
+// WithNegativeLengths provides lengths which should be ignored
+func WithNegativeLengths(lengths []int) URLOption {
+	return func(s *URLScanner) {
+		s.negativeLengths = lengths
+	}
+}
+
 func WithTimeout(timeout time.Duration) URLOption {
 	return func(s *URLScanner) {
 		s.timeout = timeout
@@ -104,4 +111,5 @@ func WithMethod(method string) URLOption {
 type URLResult struct {
 	URL        url.URL
 	StatusCode int
+	Size       int
 }

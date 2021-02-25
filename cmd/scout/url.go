@@ -22,6 +22,7 @@ var filename string
 var headers []string
 var extensions = []string{"php", "htm", "html", "txt"}
 var enableSpidering bool
+var ignoredLengths []int
 
 var urlCmd = &cobra.Command{
 	Use:   "url [url]",
@@ -80,6 +81,7 @@ var urlCmd = &cobra.Command{
 
 		options := []scan.URLOption{
 			scan.WithPositiveStatusCodes(intStatusCodes),
+			scan.WithNegativeLengths(ignoredLengths),
 			scan.WithTargetURL(*parsedURL),
 			scan.WithResultChan(resultChan),
 			scan.WithBusyChan(busyChan),
@@ -124,7 +126,7 @@ var urlCmd = &cobra.Command{
 
 		go func() {
 			for result := range resultChan {
-				importantOutputChan <- tml.Sprintf("<blue>[</blue><yellow>%d</yellow><blue>]</blue> %s\n", result.StatusCode, result.URL.String())
+				importantOutputChan <- tml.Sprintf("<blue>[</blue><yellow>%d</yellow><blue>]</blue> <blue>[</blue><yellow>%d</yellow><blue>]</blue> %s\n", result.StatusCode, result.Size, result.URL.String())
 			}
 			close(waitChan)
 		}()
@@ -197,6 +199,7 @@ func init() {
 	urlCmd.Flags().StringSliceVarP(&extensions, "extensions", "x", extensions, "File extensions to detect.")
 	urlCmd.Flags().StringSliceVarP(&headers, "header", "H", headers, "Extra header to send with requests (can be specified multiple times).")
 	urlCmd.Flags().BoolVarP(&enableSpidering, "spider", "s", enableSpidering, "Spider links within page content")
+	urlCmd.Flags().IntSliceVarP(&ignoredLengths, "hide-lengths", "l", ignoredLengths, "Hide results with these content lengths")
 
 	rootCmd.AddCommand(urlCmd)
 }

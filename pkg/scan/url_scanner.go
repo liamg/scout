@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -43,6 +44,7 @@ type URLScanner struct {
 	jobsLoaded          int32
 	proxy               *url.URL
 	method              string
+	negativeLengths     []int
 }
 
 type URLJob struct {
@@ -334,9 +336,22 @@ func (scanner *URLScanner) checkURL(job URLJob) *URLResult {
 					_, _ = io.Copy(ioutil.Discard, resp.Body)
 				}
 
+				var size int
+				contentLength := resp.Header.Get("Content-Length")
+				if contentLength != "" {
+					size, _ = strconv.Atoi(contentLength)
+				}
+
+				for _, length := range scanner.negativeLengths {
+					if length == size {
+						return nil
+					}
+				}
+
 				result = &URLResult{
 					StatusCode: code,
 					URL:        *parsedURL,
+					Size:       size,
 				}
 
 				break
