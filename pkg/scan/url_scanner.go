@@ -325,6 +325,8 @@ func (scanner *URLScanner) checkURL(job URLJob) *URLResult {
 
 				contentType := resp.Header.Get("Content-Type")
 
+				size := -1
+
 				if scanner.enableSpidering && (contentType == "" || strings.Contains(contentType, "html")) {
 					body, err := ioutil.ReadAll(resp.Body)
 					if err == nil {
@@ -332,14 +334,18 @@ func (scanner *URLScanner) checkURL(job URLJob) *URLResult {
 							scanner.queue(URLJob{URL: link})
 						}
 					}
-				} else {
-					_, _ = io.Copy(ioutil.Discard, resp.Body)
+					size = len(body)
 				}
 
-				var size int
-				contentLength := resp.Header.Get("Content-Length")
-				if contentLength != "" {
-					size, _ = strconv.Atoi(contentLength)
+				if size == -1 {
+					contentLength := resp.Header.Get("Content-Length")
+					if contentLength != "" {
+						size, _ = strconv.Atoi(contentLength)
+					} else {
+						cdata, _ := ioutil.ReadAll(resp.Body)
+						size = len(cdata)
+						cdata = nil
+					}
 				}
 
 				for _, length := range scanner.negativeLengths {
