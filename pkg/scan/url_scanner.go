@@ -281,6 +281,9 @@ func (scanner *URLScanner) checkURL(job URLJob) *URLResult {
 		for _, header := range scanner.extraHeaders {
 			parts := strings.SplitN(header, ":", 2)
 			if len(parts) == 2 {
+				if strings.ToLower(parts[0]) == "host" {
+					req.Host = strings.TrimSpace(parts[1])
+				}
 				req.Header.Set(parts[0], strings.TrimPrefix(parts[1], " "))
 			}
 		}
