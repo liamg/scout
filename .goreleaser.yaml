@@ -1,0 +1,29 @@
+builds:
+  - id: scout
+    main: ./cmd/scout
+    binary: scout
+    ldflags:
+      - "-X github.com/liamg/scout/internal/app/scout/version.Version=${TAG}"
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - "amd64"
+      - "arm64"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+
+archives:
+  - format: binary
+    name_template: "{{ .Binary}}-{{ .Os }}-{{ .Arch }}"
+
+release:
+  prerelease: auto
+  github:
+    owner: liamg
+    name: scout
