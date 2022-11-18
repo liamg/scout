@@ -33,6 +33,7 @@ type URLScanner struct {
 	busyChan            chan string    // chan to use to update current job
 	words               wordlist.Wordlist
 	extensions          []string
+	includeNoExtension  bool
 	filename            string
 	skipSSLVerification bool
 	backupExtensions    []string
@@ -69,12 +70,13 @@ func NewURLScanner(options ...URLOption) *URLScanner {
 			http.StatusFound,
 			http.StatusMovedPermanently,
 		},
-		timeout:          time.Second * 5,
-		parallelism:      10,
-		extensions:       []string{"php", "htm", "html", "txt"},
-		backupExtensions: []string{"~", ".bak", ".BAK", ".old", ".backup", ".txt", ".OLD", ".BACKUP", "1", "2", "_", ".1", ".2"},
-		enableSpidering:  false,
-		method:           "GET",
+		timeout:            time.Second * 5,
+		parallelism:        10,
+		extensions:         []string{"php", "htm", "html", "txt"},
+		includeNoExtension: false,
+		backupExtensions:   []string{"~", ".bak", ".BAK", ".old", ".backup", ".txt", ".OLD", ".BACKUP", "1", "2", "_", ".1", ".2"},
+		enableSpidering:    false,
+		method:             "GET",
 	}
 
 	for _, option := range options {
@@ -177,6 +179,9 @@ func (scanner *URLScanner) Scan() ([]url.URL, error) {
 				if !strings.HasSuffix(uri, ".htaccess") && !strings.HasSuffix(uri, ".htpasswd") {
 					for _, ext := range scanner.extensions {
 						scanner.jobChan <- URLJob{URL: uri + "." + ext}
+					}
+					if scanner.includeNoExtension {
+						scanner.jobChan <- URLJob{URL: uri}
 					}
 				}
 			}

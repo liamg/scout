@@ -74,6 +74,12 @@ func WithExtensions(extensions []string) URLOption {
 		s.extensions = extensions
 	}
 }
+func WithIncludeNoExtension(includeNoExtension bool) URLOption {
+	return func(s *URLScanner) {
+		s.includeNoExtension = includeNoExtension
+	}
+}
+
 func WithFilename(filename string) URLOption {
 	return func(s *URLScanner) {
 		s.filename = filename
