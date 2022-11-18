@@ -21,6 +21,7 @@ var hideStatusCodes []string
 var filename string
 var headers []string
 var extensions = []string{"php", "htm", "html", "txt"}
+var includeNoExtension bool
 var enableSpidering bool
 var ignoredLengths []int
 
@@ -87,6 +88,7 @@ var urlCmd = &cobra.Command{
 			scan.WithBusyChan(busyChan),
 			scan.WithParallelism(parallelism),
 			scan.WithExtensions(extensions),
+			scan.WithIncludeNoExtension(includeNoExtension),
 			scan.WithFilename(filename),
 			scan.WithSkipSSLVerification(skipSSLVerification),
 			scan.WithExtraHeaders(headers),
@@ -197,6 +199,7 @@ func init() {
 	urlCmd.Flags().StringSliceVarP(&statusCodes, "status-codes", "c", statusCodes, "HTTP status codes which indicate a positive find.")
 	urlCmd.Flags().StringSliceVarP(&hideStatusCodes, "hide-status-codes", "z", hideStatusCodes, "HTTP status codes which should be hidden.")
 	urlCmd.Flags().StringSliceVarP(&extensions, "extensions", "x", extensions, "File extensions to detect.")
+	urlCmd.Flags().BoolVarP(&includeNoExtension, "include-no-extension", "n", includeNoExtension, "Include URLs with no extension.")
 	urlCmd.Flags().StringSliceVarP(&headers, "header", "H", headers, "Extra header to send with requests (can be specified multiple times).")
 	urlCmd.Flags().BoolVarP(&enableSpidering, "spider", "s", enableSpidering, "Spider links within page content")
 	urlCmd.Flags().IntSliceVarP(&ignoredLengths, "hide-lengths", "l", ignoredLengths, "Hide results with these content lengths")

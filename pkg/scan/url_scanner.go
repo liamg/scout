@@ -73,7 +73,7 @@ func NewURLScanner(options ...URLOption) *URLScanner {
 		timeout:            time.Second * 5,
 		parallelism:        10,
 		extensions:         []string{"php", "htm", "html", "txt"},
-		includeNoExtension: true,
+		includeNoExtension: false,
 		backupExtensions:   []string{"~", ".bak", ".BAK", ".old", ".backup", ".txt", ".OLD", ".BACKUP", "1", "2", "_", ".1", ".2"},
 		enableSpidering:    false,
 		method:             "GET",
