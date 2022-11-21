@@ -172,16 +172,16 @@ func (scanner *URLScanner) Scan() ([]url.URL, error) {
 				continue
 			}
 			uri := prefix + word
+
 			if scanner.filename != "" {
 				scanner.jobChan <- URLJob{URL: uri + "/" + scanner.filename, BasicOnly: true}
 			} else {
-				scanner.jobChan <- URLJob{URL: uri, BasicOnly: true}
+				if scanner.includeNoExtension {
+					scanner.jobChan <- URLJob{URL: uri, BasicOnly: true}
+				}
 				if !strings.HasSuffix(uri, ".htaccess") && !strings.HasSuffix(uri, ".htpasswd") {
 					for _, ext := range scanner.extensions {
 						scanner.jobChan <- URLJob{URL: uri + "." + ext}
-					}
-					if scanner.includeNoExtension {
-						scanner.jobChan <- URLJob{URL: uri}
 					}
 				}
 			}
